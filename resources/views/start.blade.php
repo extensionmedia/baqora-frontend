@@ -33,5 +33,44 @@
             </div>
         </div>
     </div>
+
+</div>
+<div class="mx-auto w-full xl:w-2/3 px-8 mt-36">
+    @php
+        $images = [
+            "https://www.leboncoin.fr/_next/static/vacances-38879ace.webp",
+            "https://www.leboncoin.fr/_next/static/vetements-76b5c945.webp",
+            "https://www.leboncoin.fr/_next/static/ventes_immo-6c146029.webp",
+            "https://www.leboncoin.fr/_next/static/voitures-b5f976d6.webp",
+            "https://www.leboncoin.fr/_next/static/ameublement-e02cc20c.webp",
+            "https://www.leboncoin.fr/_next/static/electromenager-c2e8abe1.webp",
+            "https://www.leboncoin.fr/_next/static/informatique-b7973411.webp",
+            "https://www.leboncoin.fr/_next/static/livres-3fc73a23.webp",
+            "https://www.leboncoin.fr/_next/static/vetements-76b5c945.webp",
+            "https://www.leboncoin.fr/_next/static/ameublement-e02cc20c.webp",
+        ]
+    @endphp
+    <h1 class="text-bold text-xl my-2">Top Categories</h1>
+    <div class="flex gap-4 mb-4">
+        @for ($i = 0; $i < 5; $i++)
+        <a href="#" class="relative border border-white border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4">
+            <img src="{{$images[$i]}}" class="rounded shadow border flex-1 h-40" />
+            <div class="absolute bottom-0 w-full text-center text-white">
+                Categories
+            </div>
+        </a>
+                
+        @endfor
+    </div>
+    <div class="flex gap-4">
+        @for ($i = 0; $i < 5; $i++)
+        <a href="#" class="relative border border-white border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4">
+            <img src="{{$images[$i+5]}}" class="rounded shadow border flex-1 h-40" />
+            <div class="absolute bottom-0 w-full text-center text-white">
+                Categories
+            </div>
+        </a>
+        @endfor
+    </div>
 </div>
 @endsection
