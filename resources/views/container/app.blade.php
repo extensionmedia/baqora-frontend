@@ -11,7 +11,7 @@
     
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Baqora : pour les petites annonces</title>
-
+    @include('container.partials.favicon')
 </head>
 <body>
     @include('container.topbar')
