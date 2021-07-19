@@ -1,6 +1,6 @@
 @extends('container.app')
 @section('content')
-<div class="w-full bg-red-300 py-4 pb-16 relative">
+<div class="w-full bg-red-300 py-4 pb-16">
     <div class="mx-auto w-full xl:w-2/3 px-8">
         <div class="text-center py-4">
             <h1 class="text-2xl xl:text-3xl"><b>Baqora</b> Le Premier Site Des Petites Annonces Au Maroc</h1>
@@ -9,7 +9,7 @@
             </p>
         </div>
     </div>
-    <div class="absolute w-full px-4 lg:p-0">
+    <div class="w-full px-4 lg:p-0">
         <div class="border bg-white shadow-lg rounded w-full 2lg:w-6/12 lg:w-7/12 md:w-10/12 md:mx-auto lg:mx-auto p-4 pt-6 text-gray-500">
             <div class="flex items-center gap-4">
                 <label for="offre" class="text-md"><input type="radio" name="type" id="offre" class="mr-1" checked> Offres</label>
@@ -35,7 +35,7 @@
     </div>
 
 </div>
-<div class="mx-auto w-full xl:w-2/3 px-8 mt-36">
+<div class="mx-auto z-10 w-full xl:w-2/3 px-4 lg:px-8 mt-8 z-0">
     @php
         $images = [
             "https://www.leboncoin.fr/_next/static/vacances-38879ace.webp",
@@ -52,11 +52,11 @@
         ]
     @endphp
     <h1 class="text-bold text-xl my-2">Top Categories</h1>
-    <div class="grid grid-cols-5 gap-4 mb-4">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8 z-0">
         @foreach ($categories as $category)
-            <a href="{{ $category->slug }}" class="relative border border-white border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4">
+            <a href="{{ $category->slug }}" class="border mb-4 border-white border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4">
                 <img src="{{$images[$loop->index]}}" class="rounded shadow border flex-1 h-40" />
-                <div class="absolute bottom-0 w-full text-center text-white">
+                <div class="w-full text-center text-white -mt-12">
                     {{ $category->annonce_category_name }}
                 </div>
             </a>
@@ -65,17 +65,7 @@
 
 
 </div>
-<div class="bg-gray-50 py-4">
-    <div class="mx-auto w-full xl:w-2/3" style="columns: auto 4">
-        @foreach ($categories as $category)
-            <div class="border-b mb-4 pb-4" style="break-inside: avoid;">
-                <a href="{{ $category->slug }}" class="text-red-800 block text-sm hover:underline"> {{ $category->annonce_category_name }} </a>
-                @foreach ($category->subCategories as $sub)
-                    <a href="{{ $sub->slug }}" class="text-gray-500 block text-xs hover:underline"> {{ $sub->annonce_category_name }} </a>
-                @endforeach
-            </div>
-        @endforeach
-    </div>
-</div>
+
+    @include('container.foobar')
 
 @endsection
