@@ -48,29 +48,34 @@
             "https://www.leboncoin.fr/_next/static/livres-3fc73a23.webp",
             "https://www.leboncoin.fr/_next/static/vetements-76b5c945.webp",
             "https://www.leboncoin.fr/_next/static/ameublement-e02cc20c.webp",
+            "https://www.leboncoin.fr/_next/static/ameublement-e02cc20c.webp",
         ]
     @endphp
     <h1 class="text-bold text-xl my-2">Top Categories</h1>
-    <div class="flex gap-4 mb-4">
-        @for ($i = 0; $i < 5; $i++)
-        <a href="#" class="relative border border-white border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4">
-            <img src="{{$images[$i]}}" class="rounded shadow border flex-1 h-40" />
-            <div class="absolute bottom-0 w-full text-center text-white">
-                Categories
-            </div>
-        </a>
-                
-        @endfor
+    <div class="grid grid-cols-5 gap-4 mb-4">
+        @foreach ($categories as $category)
+            <a href="{{ $category->slug }}" class="relative border border-white border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4">
+                <img src="{{$images[$loop->index]}}" class="rounded shadow border flex-1 h-40" />
+                <div class="absolute bottom-0 w-full text-center text-white">
+                    {{ $category->annonce_category_name }}
+                </div>
+            </a>
+        @endforeach
     </div>
-    <div class="flex gap-4">
-        @for ($i = 0; $i < 5; $i++)
-        <a href="#" class="relative border border-white border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4">
-            <img src="{{$images[$i+5]}}" class="rounded shadow border flex-1 h-40" />
-            <div class="absolute bottom-0 w-full text-center text-white">
-                Categories
+
+
+</div>
+<div class="bg-gray-50 py-4">
+    <div class="mx-auto w-full xl:w-2/3" style="columns: auto 4">
+        @foreach ($categories as $category)
+            <div class="border-b mb-4 pb-4" style="break-inside: avoid;">
+                <a href="{{ $category->slug }}" class="text-red-800 block text-sm hover:underline"> {{ $category->annonce_category_name }} </a>
+                @foreach ($category->subCategories as $sub)
+                    <a href="{{ $sub->slug }}" class="text-gray-500 block text-xs hover:underline"> {{ $sub->annonce_category_name }} </a>
+                @endforeach
             </div>
-        </a>
-        @endfor
+        @endforeach
     </div>
 </div>
+
 @endsection
