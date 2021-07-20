@@ -29,4 +29,12 @@ class StartController extends Controller
             echo $c->save();
         }
     }
+
+    public function getSubAnnonceCategorie($id_annonce_category){
+        $annonce_category = AnnonceCategory::findOrFail($id_annonce_category);
+        if($annonce_category){
+            return $annonce_category->subCategories()->get();
+        }
+        return [];
+    }
 }

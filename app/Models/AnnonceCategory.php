@@ -9,6 +9,8 @@ class AnnonceCategory extends Model
 {
     use HasFactory;
     public $timestamps = false;
+
+
     function subCategories(){
         return $this->hasMany(AnnonceCategory::class, 'annonce_category_id', 'id');
     }

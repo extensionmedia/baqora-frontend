@@ -31855,6 +31855,16 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 body{
   font-family: 'Poppins', sans-serif;
 }
@@ -187673,3 +187683,4 @@ body{
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
+

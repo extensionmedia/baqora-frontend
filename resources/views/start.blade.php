@@ -15,25 +15,49 @@
                 <label for="offre" class="text-md"><input type="radio" name="type" id="offre" class="mr-1" checked> Offres</label>
                 <label for="demande" class="text-md"><input type="radio" name="type" id="demande" class=""> Demandes</label>
             </div>
-            <div class="flex gap-2 my-4">
-                <div class="flex-1">
-                    <select name="" id="" class="w-full bg-gray-50 py-2 px-3 rounded border border-gray-200">
-                        <option value="">Categories</option>
+            <div class="md:flex gap-2 my-4">
+                <div class="flex-1 mb-4 md:mb-0">
+                    <select name="" id="search_annonce_category" class="w-full bg-gray-50 py-2 px-3 rounded border border-gray-200">
+                        <option value="-1">Tous les catégories</option>
+                        @foreach ($categories as $c)
+                        <option value="{{$c->id}}">{{$c->annonce_category_name}}</option>
+                        @endforeach
                     </select>
                 </div>
-                <div class="flex-1">
+                <div class="flex-1 mb-4 md:mb-0">
                     <input placeholder="Chercher..." type="text" name="" id="" class="w-full bg-gray-50 py-2 px-3 rounded border border-gray-200">
                 </div>
-                <div class="flex-1">
-                    <input placeholder="ville" type="text" name="" id="" class="w-full bg-gray-50 py-2 px-3 rounded border border-gray-200">
+                <div class="flex-1 mb-4 md:mb-0">
+                    <select name="" id="" class="w-full bg-gray-50 py-2 px-3 rounded border border-gray-200">
+                        <option value="">Tous les villes</option>
+                    </select>
                 </div>
             </div>
+            <div class="searchSub">
+
+            </div>
+
             <div class="text-center lg:text-left">
                 <button class="rounded py-2 px-4 bg-blue-600 text-white">CHERCHER</button>
             </div>
         </div>
     </div>
-
+    <script>
+        $(document).ready(function(){
+            $('#search_annonce_category').change(function(){
+                var id_annonce_category = $(this).val();
+                $('.searchSub').html('<div class="mb-4 args subCategory"><i class="fas fa-spinner fa-spin"></i></div>');
+                $.get("/search/annonce_category/"+id_annonce_category, function(r){
+                    $(".args.subCategory").html(``);
+                    $.each(r, function(i, val){
+                        $(".args.subCategory").append(`
+                            <label for="annonce_category" class="inline-block text-sm border bg-red-100 hover:bg-red-300 cursor-pointer rounded-lg px-2 py-1 mb-2"><input type="checkbox" name="annonce_category" id="annonce_category" class="mr-1">`+val.annonce_category_name+`</label>
+                        `);
+                    })
+                });
+            });
+        });
+    </script>
 </div>
 <div class="mx-auto z-10 w-full xl:w-2/3 px-4 lg:px-8 mt-8 z-0">
     @php
