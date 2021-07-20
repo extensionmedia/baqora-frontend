@@ -66,6 +66,10 @@
 
 </div>
 
-    @include('container.foobar')
+<div class="mx-auto z-10 w-full xl:w-2/3 px-4 lg:px-8 mt-8 z-0">
+    @include('annonce.list')
+</div>
+
+@include('container.foobar')
 
 @endsection
