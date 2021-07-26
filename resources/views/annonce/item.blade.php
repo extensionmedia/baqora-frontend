@@ -1,4 +1,4 @@
-<div class="md:flex border rounded-lg mb-4 overflow-hidden cursor-pointer hover:shadow hover:border-red-200">
+<a href="/annonce/une-annonce-ici-kjht321rer" class="md:flex border rounded-lg mb-4 overflow-hidden cursor-pointer hover:shadow hover:border-red-200">
     <div class="w-full md:w-60 max-h-36 overflow-hidden relative">
         <img class="w-full" src="https://img.leboncoin.fr/api/v1/lbcpb1/images/eb/02/c9/eb02c939f58d9c54b86aa75e7b378175b97e5ada.jpg?rule=classified-760x460-webp">
         <div class="rounded-lg text-xs px-1 py-1 bg-red-100 bg-opacity-20 absolute top-0 m-2">
@@ -46,4 +46,4 @@
         </div>
 
     </div>
-</div>
+</a>

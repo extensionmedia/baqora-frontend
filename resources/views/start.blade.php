@@ -46,15 +46,20 @@
         $(document).ready(function(){
             $('#search_annonce_category').change(function(){
                 var id_annonce_category = $(this).val();
-                $('.searchSub').html('<div class="mb-4 args subCategory"><i class="fas fa-spinner fa-spin"></i></div>');
-                $.get("/search/annonce_category/"+id_annonce_category, function(r){
+                if(id_annonce_category == '-1'){
                     $(".args.subCategory").html(``);
-                    $.each(r, function(i, val){
-                        $(".args.subCategory").append(`
-                            <label for="annonce_category" class="inline-block text-sm border bg-red-100 hover:bg-red-300 cursor-pointer rounded-lg px-2 py-1 mb-2"><input type="checkbox" name="annonce_category" id="annonce_category" class="mr-1">`+val.annonce_category_name+`</label>
-                        `);
-                    })
-                });
+                }else{
+                    $('.searchSub').html('<div class="mb-4 args subCategory"><i class="fas fa-spinner fa-spin"></i></div>');
+                    $.get("/search/annonce_category/"+id_annonce_category, function(r){
+                        $(".args.subCategory").html(``);
+                        $.each(r, function(i, val){
+                            $(".args.subCategory").append(`
+                                <label for="annonce_category_`+val.id+`" class="inline-block text-sm border bg-red-100 hover:bg-red-300 cursor-pointer rounded-lg px-2 py-1 mb-2"><input type="checkbox" name="annonce_category" id="annonce_category_`+val.id+`" class="mr-1">`+val.annonce_category_name+`</label>
+                            `);
+                        })
+                    });
+                }
+
             });
         });
     </script>
