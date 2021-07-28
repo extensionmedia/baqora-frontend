@@ -1,10 +1,10 @@
 <div class="fixed z-100 top-0 shadow flex items-center h-16 shadow bg-white w-full">
     <div class="flex items-center justify-between mx-auto w-full xl:w-2/3 px-4 lg:px-8 ">
         <div class="flex items-center gap-6">
-            <div class="flex items-center gap-1">
+            <a href="{{route('start')}}" class="flex items-center gap-1">
                 <img class="h-8" src="{{ asset('storage/images/baqora-logo.png') }}" alt="">
                 <div class="text-black font-bold text-xl tracking-wide">Baqora</div>
-            </div>
+            </a>
             <a href="#" class="py-2 px-3 rounded-lg bg-red-300 bordered border-red-400 cursor-pointer hover:text-white hover:bg-red-400">
                 <i class="far fa-plus-square"></i>
                 <span class="hidden lg:inline-block">

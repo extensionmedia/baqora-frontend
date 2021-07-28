@@ -6,6 +6,7 @@
         <div class="flex w-full gap-4">
             <div class="w-2/3">
                 @include('annonce.show.partials.images')
+                @include('annonce.show.partials.description')
             </div>
             <div class="w-1/3">
                 @include('annonce.show.partials.client')
