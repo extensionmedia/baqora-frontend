@@ -9,6 +9,7 @@ Route::get('/slug', [StartController::class, 'slug']);
 
 
 Route::get('/search/annonce_category/{id}', [StartController::class, 'getSubAnnonceCategorie']);
+Route::get('/search/city_sector/{id}', [StartController::class, 'getCitySectors']);
 Route::get('/annonce/{slug}-{uid}', function(){
     return view('annonce.show.index');
 });

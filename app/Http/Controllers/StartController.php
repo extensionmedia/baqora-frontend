@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnnonceCategory;
+use App\Models\City;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,15 @@ class StartController extends Controller
                             ->get();
         });
 
+        $cities = cache()->remember('cities', 60*60*24, function(){
+            return City::where('city_status', 1)
+                        ->orderBy('city_name')
+                        ->get();
+        });
+
         return view('start')->with([
-            'categories'    =>  $annonce_categories
+            'categories'    =>  $annonce_categories,
+            'cities'        =>  $cities
         ]);
     }
 
@@ -37,4 +45,13 @@ class StartController extends Controller
         }
         return [];
     }
+
+    public function getCitySectors($id_city){
+        $city = City::findOrFail($id_city);
+        if($id_city){
+            return $city->citySectors()->get();
+        }
+        return [];
+    }
+
 }

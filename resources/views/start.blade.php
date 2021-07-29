@@ -28,8 +28,11 @@
                     <input placeholder="Chercher..." type="text" name="" id="" class="w-full bg-gray-50 py-2 px-3 rounded border border-gray-200">
                 </div>
                 <div class="flex-1 mb-4 md:mb-0">
-                    <select name="" id="" class="w-full bg-gray-50 py-2 px-3 rounded border border-gray-200">
-                        <option value="">Tous les villes</option>
+                    <select name="" id="search_city" class="w-full bg-gray-50 py-2 px-3 rounded border border-gray-200">
+                        <option value="-1">Tous les villes</option>
+                        @foreach ($cities as $city)
+                        <option value="{{$city->id}}">{{$city->city_name}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -61,6 +64,25 @@
                 }
 
             });
+
+            $('#search_city').change(function(){
+                var id_city = $(this).val();
+                if(id_city == '-1'){
+                    $(".args.sector").html(``);
+                }else{
+                    $('.searchSub').html('<div class="mb-4 args sector"><i class="fas fa-spinner fa-spin"></i></div>');
+                    $.get("/search/city_sector/"+id_city, function(r){
+                        $(".args.sector").html(``);
+                        $.each(r, function(i, val){
+                            $(".args.sector").append(`
+                                <label for="city_sector_`+val.id+`" class="inline-block text-sm border bg-red-100 hover:bg-red-300 cursor-pointer rounded-lg px-2 py-1 mb-2"><input type="checkbox" name="city_sector" id="city_sector_`+val.id+`" class="mr-1">`+val.city_sector_name+`</label>
+                            `);
+                        })
+                    });
+                }
+
+            });
+
         });
     </script>
 </div>
