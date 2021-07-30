@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Annonce extends Model
 {
     use HasFactory;
+
+    public function client(){
+        return $this->belongsTo(Client::class, 'client_id', 'id');
+    }
+
+    public function category(){
+        return $this->belongsTo(AnnonceCategory::class, 'annonce_category_id', 'id');
+    }
+
+    public function sous_category(){
+        return $this->belongsTo(AnnonceCategory::class, 'annonce_sous_category_id', 'id');
+    }
 }

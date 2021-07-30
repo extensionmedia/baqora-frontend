@@ -37,7 +37,7 @@ class CreateAnnoncesTable extends Migration
             $table->string('titre');
             $table->string('telephone')->nullable();
             $table->text('description')->nullable();
-            $table->float('prix')->default(0);
+            $table->integer('prix')->default(0);
             $table->integer('prix_type')->default(1);
             $table->string('slug')->nullable();
             $table->string('default_image')->nullable();
