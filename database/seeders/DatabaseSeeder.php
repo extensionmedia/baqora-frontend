@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AnnonceCategoryTableSeeder::class);
         $this->call(CityTableSeeder::class);
         $this->call(CitySectorTableSeeder::class);
+        $this->call(AnnonceTableSeeder::class);
     }
 }
