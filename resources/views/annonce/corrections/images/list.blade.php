@@ -59,10 +59,8 @@
                 url: "{{route('imagesToJson')}}",
                 data: {uid: uid},
                 success: function(r){
-                    that.parent().find('.image_counter').html(r);
                     console.log(r);
-                    that.html('done');
-                    that.addClass('done');
+                    that.parent().remove();
                     isworking = false;
                     $('.start').trigger('click');
                 }

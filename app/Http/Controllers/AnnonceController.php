@@ -17,15 +17,15 @@ class AnnonceController extends Controller
         }
     }
 
-    public function images(){
-        $index = 0;
-        foreach( Storage::disk('public')->listContents('temp/annonces') as $d ){
-            if($index > 10){
-                return;
+    public function images(Request $r){
+        $images = [];
+        foreach(Storage::disk('public')->listContents('temp/annonces/'.$r->uid) as $path){
+            if($path["type"] == "file"){
+                $images[] = $path["basename"];
+                Storage::copy('public/temp/annonces/' . $r->uid . '/' . $path["basename"], 'public/annonces/' . $r->uid . '/' .$path["basename"]);
             }
-            dump( $d );
-            $index++;
         }
+        dd($images);
     }
 
     public function correct_images(){
@@ -38,14 +38,14 @@ class AnnonceController extends Controller
         ]);
     }
 
-    public function imagesToJson(Request $r){
+    public function imagesToJson2(Request $r){
         $index = 0;
         if($r->uid){
             foreach( Storage::disk('public')->listContents('temp/annonces/'.$r->uid) as $d ){
                 $index++;
             }
         }
-        if($index === 0){
+        if($index == 0){
             Annonce::where('annonce_UID', $r->uid)->delete();
             return -1;
         }
@@ -61,5 +61,29 @@ class AnnonceController extends Controller
                     return count($annonce->images_path);
         }
         return 0;
+    }
+
+    public function imagesToJson(Request $r){
+        // $index = 0;
+        // $json = [];
+        // if($r->uid){
+        //     foreach( Storage::disk('public')->listContents('temp/annonces/'.$r->uid) as $d ){
+        //         $index++;
+        //     }
+        // }
+        // if($index == 0){
+        //     Annonce::where('annonce_UID', $r->uid)->delete();
+        //     return -1;
+        // }
+        // return $index;
+        // return $r->uid;
+
+        foreach(Storage::disk('public')->listContents('temp/annonces/'.$r->uid) as $path){
+            if($path["type"] == "file"){
+                $images[] = $path["basename"];
+                Storage::copy('public/temp/annonces/' . $r->uid . '/' . $path["basename"], 'public/annonces/' . $r->uid . '/' .$path["basename"]);
+            }
+        }
+        return 1;
     }
 }
