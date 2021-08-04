@@ -9,6 +9,10 @@ class Annonce extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'images_path'    =>  'array'
+    ];
+
     public function client(){
         return $this->belongsTo(Client::class, 'client_id', 'id');
     }
