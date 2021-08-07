@@ -7,22 +7,21 @@
                 <button class="stop bg-red-500 py-1 px-2 text-white">stop</button>
             </div>
             @foreach ($annonces as $a)
-                <div class="flex items-center h-12 gap-4 border-b">
-                    <div class="">
-                        {{$a["id"]}}
+                @if (!$a->images()->count())
+                    <div class="flex items-center h-12 gap-4 border-b">
+                        <div class="">
+                            {{$a["id"]}}
+                        </div>
+                        <div class="flex-1">
+                            {{$a["titre"]}}
+                        </div>
+                        <div class="image_counter">
+                            {{  $a->images()->count()  }}
+                        </div>
+                        <button class="go bg-red-500 rounded text-white py-1 px-2" data-id="{{$a["id"]}}" data-uid="{{$a["annonce_UID"]}}">go!</button>
                     </div>
-                    <div class="flex-1">
-                        {{$a["titre"]}}
-                    </div>
-                    <div class="image_counter">
-                        @if ( $a["images_path"] )
-                            {{  count($a["images_path"])  }}
-                        @else
-                            0
-                        @endif
-                    </div>
-                    <button class="go bg-red-500 rounded text-white py-1 px-2" data-id="{{$a["id"]}}" data-uid="{{$a["annonce_UID"]}}">go!</button>
-                </div>
+                @endif
+
             @endforeach
         </div>
     </div>

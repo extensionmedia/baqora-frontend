@@ -3,17 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\Annonce;
+use App\Models\AnnonceImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AnnonceController extends Controller
 {
+
+    public function show(Annonce $annonce){
+        return view('annonce.show.index', ['annonce'=>$annonce]);
+    }
+
+    public function slug($string, $separator = '-') {
+        if (is_null($string)) {
+            return "";
+        }
+
+        $string = trim($string);
+
+        $string = mb_strtolower($string, "UTF-8");;
+
+        $string = preg_replace("/[^a-z0-9_\sءاأإآؤئبتثجحخدذرزسشصضطظعغفقكلمنهويةى]#u/", "", $string);
+
+        $string = preg_replace("/[\s-]+/", " ", $string);
+
+        $string = preg_replace("/[\s_]/", $separator, $string);
+
+        return $string;
+    }
+
     public function create_slug(){
         $annonces = Annonce::all();
         foreach($annonces as $a){
-            $a->slug = Str::slug($a->titre)."-".$a->id;
-            echo $a->save();
+            if(is_null($a->slug)){
+                echo $a->titre . ' : ' . $this->slug($a->titre) . '<br>';
+                $a->slug = $this->slug($a->titre)."-".$a->id;
+                $a->save();
+            }
         }
     }
 
@@ -64,8 +92,60 @@ class AnnonceController extends Controller
     }
 
     public function imagesToJson(Request $r){
+
+        foreach(Annonce::all() as $a){
+            if($a->images->count()){
+                $test = $a->images->where('is_default', true);
+                if(!$test){
+                    echo $a->annonce_UID . 'has no default <br>';
+                }
+            }else{
+                echo $a->annonce_UID . 'has no image at all <br>';
+            }
+
+        }
+
+
+        // $i = 0;
+        // foreach(Annonce::all() as $a){
+
+            // if(!$a->images()->count()){
+
+            //     echo $a->annonce_UID . ' has no images <br>';
+            // }
+
+            // if(!$a->images->where('is_default', '1')->count()){
+
+            //     $ai = AnnonceImage::where('annonce_id', $a->id)->first();
+            //     if($ai){
+            //         $ai->is_default = true;
+            //         $ai->save();
+            //         $i++;
+            //     }else{
+            //          foreach(Annonce::where('annonce_UID', $a->annonce_UID) as $t){
+            //             echo $a->annonce_UID . ' : ' . AnnonceImage::where('annonce_id', $t->id)->count() . '<br>';
+            //         //     if(!AnnonceImage::where('annonce_id', $t->id)->count()){
+            //         //         $t->delete();
+            //         //     }
+            //          }
+            //         //echo $a->annonce_UID . ' has no images <br>';
+            //     }
+
+            // }
+        // }
+
+
+        // foreach(Storage::disk('public')->listContents('annonces') as $path){
+        //     if($path['type'] == 'dir')
+        //         $a = Annonce::where('annonce_UID', $path['filename']);
+        //         if(!$a){
+        //             echo $path['filename'] . 'not exists <br>';
+        //         }
+        // }
+
+
+
         // $index = 0;
-        // $json = [];
         // if($r->uid){
         //     foreach( Storage::disk('public')->listContents('temp/annonces/'.$r->uid) as $d ){
         //         $index++;
@@ -78,12 +158,25 @@ class AnnonceController extends Controller
         // return $index;
         // return $r->uid;
 
-        foreach(Storage::disk('public')->listContents('temp/annonces/'.$r->uid) as $path){
-            if($path["type"] == "file"){
-                $images[] = $path["basename"];
-                Storage::copy('public/temp/annonces/' . $r->uid . '/' . $path["basename"], 'public/annonces/' . $r->uid . '/' .$path["basename"]);
-            }
-        }
-        return 1;
+
+
+
+        // if($r->uid){
+        //     $annonce = Annonce::where('annonce_UID', $r->uid)->first();
+        //     if($annonce)
+        //         foreach(Storage::disk('public')->listContents('temp/annonces/'.$r->uid) as $path){
+        //             if($path["type"] == "file"){
+        //                 if( !Storage::exists('public/annonces/' . $r->uid . '/' .$path["basename"] ) ){
+        //                     Storage::copy('public/temp/annonces/' . $r->uid . '/' . $path["basename"], 'public/annonces/' . $r->uid . '/' .$path["basename"]);
+        //                     AnnonceImage::create([
+        //                         'annonce_id'    =>  $annonce->id,
+        //                         'annonce_UID'   =>  $annonce->annonce_UID,
+        //                         'is_default'    =>  Str::contains($path["basename"], '(default)')? true: false,
+        //                         'image_path'    =>  'annonces/' . $r->uid . '/' . $path["basename"]
+        //                     ]);
+        //                 }
+        //             }
+        //         }
+        // }
     }
 }

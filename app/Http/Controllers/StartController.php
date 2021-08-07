@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Annonce;
 use App\Models\AnnonceCategory;
 use App\Models\City;
 use Illuminate\Support\Str;
@@ -26,7 +27,8 @@ class StartController extends Controller
 
         return view('start')->with([
             'categories'    =>  $annonce_categories,
-            'cities'        =>  $cities
+            'cities'        =>  $cities,
+            'annonces'      =>  Annonce::inRandomOrder()->limit(10)->get()
         ]);
     }
 

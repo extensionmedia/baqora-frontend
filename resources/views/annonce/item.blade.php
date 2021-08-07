@@ -1,8 +1,8 @@
-<a href="/annonce/une-annonce-ici-kjht321rer" class="md:flex border rounded-lg mb-4 overflow-hidden cursor-pointer hover:shadow hover:border-red-200">
+<a href="{{route('annonce.show', $annonce)}}" class="md:flex border rounded-lg mb-4 overflow-hidden cursor-pointer hover:shadow hover:border-red-200">
     <div class="w-full md:w-60 max-h-36 overflow-hidden relative">
-        <img class="w-full" src="https://img.leboncoin.fr/api/v1/lbcpb1/images/eb/02/c9/eb02c939f58d9c54b86aa75e7b378175b97e5ada.jpg?rule=classified-760x460-webp">
+        <img class="w-full" src="storage/{{ $annonce->default_image($annonce->annonce_UID) }}">
         <div class="rounded-lg text-xs px-1 py-1 bg-red-100 bg-opacity-20 absolute top-0 m-2">
-            <i class="fas fa-camera"></i> 5
+            <i class="fas fa-camera"></i> {{$annonce->images->count()}}
         </div>
     </div>
     <div class="flex-1 py-3 px-4">
@@ -10,9 +10,9 @@
             <div class="">
                 <div class="flex justify-between items-center mb-1">
                     <p class="text-lg">
-                        Location estivale Banyuls sur mer
+                        {{$annonce->titre}}
                     </p>
-                    @if ($i == 3 OR $i == 0)
+                    @if ($loop->index == 3 OR $loop->index == 0)
                     <div class="rounded border border-red-300 text-red-300 text-xs py-0 px-4">
                         PRO
                     </div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="text-xs text-red-300">
                     <p>
-                        <i class="fas fa-tag"></i> 15 500 MAD
+                        <i class="fas fa-tag"></i> {{$annonce->prix}} MAD
                     </p>
                 </div>
             </div>
@@ -28,13 +28,13 @@
                 <div class="flex justify-between items-end">
                     <div class="text-xs text-gray-400">
                         <p class="">
-                            Immobilier -> Maison
+                            {{$annonce->category->annonce_category_name}} -> {{$annonce->sous_category->annonce_category_name}}
                         </p>
                         <p class="">
-                            Tetouan : Safir
+                            @if ($annonce->city) {{$annonce->city->city_name}} @else Tous le Maroc @endif @if ($annonce->sector) : {{$annonce->sector->city_sector_name}} @endif
                         </p>
                         <p class="text-red-800 font-bold pt-2" style="font-size:10px">
-                            <i class="far fa-clock"></i> Ajourd'hui : 12:23
+                            <i class="far fa-clock"></i> {{ $annonce['created_at']->diffForHumans() }}
                         </p>
                     </div>
                     <div class="flex gap-2 pb-2">

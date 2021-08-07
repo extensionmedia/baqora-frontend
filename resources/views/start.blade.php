@@ -45,69 +45,14 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function(){
-            $('#search_annonce_category').change(function(){
-                var id_annonce_category = $(this).val();
-                if(id_annonce_category == '-1'){
-                    $(".args.subCategory").html(``);
-                }else{
-                    $('.searchSub').html('<div class="mb-4 args subCategory"><i class="fas fa-spinner fa-spin"></i></div>');
-                    $.get("/search/annonce_category/"+id_annonce_category, function(r){
-                        $(".args.subCategory").html(``);
-                        $.each(r, function(i, val){
-                            $(".args.subCategory").append(`
-                                <label for="annonce_category_`+val.id+`" class="inline-block text-sm border bg-red-100 hover:bg-red-300 cursor-pointer rounded-lg px-2 py-1 mb-2"><input type="checkbox" name="annonce_category" id="annonce_category_`+val.id+`" class="mr-1">`+val.annonce_category_name+`</label>
-                            `);
-                        })
-                    });
-                }
-
-            });
-
-            $('#search_city').change(function(){
-                var id_city = $(this).val();
-                if(id_city == '-1'){
-                    $(".args.sector").html(``);
-                }else{
-                    $('.searchSub').html('<div class="mb-4 args sector"><i class="fas fa-spinner fa-spin"></i></div>');
-                    $.get("/search/city_sector/"+id_city, function(r){
-                        $(".args.sector").html(``);
-                        $.each(r, function(i, val){
-                            $(".args.sector").append(`
-                                <label for="city_sector_`+val.id+`" class="inline-block text-sm border bg-red-100 hover:bg-red-300 cursor-pointer rounded-lg px-2 py-1 mb-2"><input type="checkbox" name="city_sector" id="city_sector_`+val.id+`" class="mr-1">`+val.city_sector_name+`</label>
-                            `);
-                        })
-                    });
-                }
-
-            });
-
-        });
-    </script>
 </div>
 <div class="mx-auto z-10 w-full xl:w-2/3 px-4 lg:px-8 mt-8 z-0">
-    @php
-        $images = [
-            "https://www.leboncoin.fr/_next/static/vacances-38879ace.webp",
-            "https://www.leboncoin.fr/_next/static/vetements-76b5c945.webp",
-            "https://www.leboncoin.fr/_next/static/ventes_immo-6c146029.webp",
-            "https://www.leboncoin.fr/_next/static/voitures-b5f976d6.webp",
-            "https://www.leboncoin.fr/_next/static/ameublement-e02cc20c.webp",
-            "https://www.leboncoin.fr/_next/static/electromenager-c2e8abe1.webp",
-            "https://www.leboncoin.fr/_next/static/informatique-b7973411.webp",
-            "https://www.leboncoin.fr/_next/static/livres-3fc73a23.webp",
-            "https://www.leboncoin.fr/_next/static/vetements-76b5c945.webp",
-            "https://www.leboncoin.fr/_next/static/ameublement-e02cc20c.webp",
-            "https://www.leboncoin.fr/_next/static/ameublement-e02cc20c.webp",
-        ]
-    @endphp
     <h1 class="text-bold text-xl my-2">Top Categories</h1>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8 z-0">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 z-0">
         @foreach ($categories as $category)
-            <a href="{{ $category->slug }}" class="border mb-4 border-white border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4">
-                <img src="{{$images[$loop->index]}}" class="rounded shadow border flex-1 h-40" />
-                <div class="w-full text-center text-white -mt-12">
+            <a href="{{ $category->slug }}" class="border mb-4 border-gray-200 border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4 overflow-hidden">
+                <img src="storage/{{ $category->picture }}" class="rounded shadow flex-1" />
+                <div class="bg-red-50 w-full text-center text-gray-600 py-1">
                     {{ $category->annonce_category_name }}
                 </div>
             </a>
@@ -122,5 +67,47 @@
 </div>
 
 @include('container.foobar')
+
+
+<script>
+    $(document).ready(function(){
+        $('#search_annonce_category').change(function(){
+            var id_annonce_category = $(this).val();
+            if(id_annonce_category == '-1'){
+                $(".args.subCategory").html(``);
+            }else{
+                $('.searchSub').html('<div class="mb-4 args subCategory"><i class="fas fa-spinner fa-spin"></i></div>');
+                $.get("/search/annonce_category/"+id_annonce_category, function(r){
+                    $(".args.subCategory").html(``);
+                    $.each(r, function(i, val){
+                        $(".args.subCategory").append(`
+                            <label for="annonce_category_`+val.id+`" class="inline-block text-sm border bg-red-100 hover:bg-red-300 cursor-pointer rounded-lg px-2 py-1 mb-2"><input type="checkbox" name="annonce_category" id="annonce_category_`+val.id+`" class="mr-1">`+val.annonce_category_name+`</label>
+                        `);
+                    })
+                });
+            }
+
+        });
+
+        $('#search_city').change(function(){
+            var id_city = $(this).val();
+            if(id_city == '-1'){
+                $(".args.sector").html(``);
+            }else{
+                $('.searchSub').html('<div class="mb-4 args sector"><i class="fas fa-spinner fa-spin"></i></div>');
+                $.get("/search/city_sector/"+id_city, function(r){
+                    $(".args.sector").html(``);
+                    $.each(r, function(i, val){
+                        $(".args.sector").append(`
+                            <label for="city_sector_`+val.id+`" class="inline-block text-sm border bg-red-100 hover:bg-red-300 cursor-pointer rounded-lg px-2 py-1 mb-2"><input type="checkbox" name="city_sector" id="city_sector_`+val.id+`" class="mr-1">`+val.city_sector_name+`</label>
+                        `);
+                    })
+                });
+            }
+
+        });
+
+    });
+</script>
 
 @endsection

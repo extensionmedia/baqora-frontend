@@ -40,9 +40,7 @@ class CreateAnnoncesTable extends Migration
             $table->integer('prix')->default(0);
             $table->integer('prix_type')->default(1);
             $table->string('slug')->nullable();
-            $table->string('default_image')->nullable();
-            $table->integer('counter')->default(0);
-            $table->json('images_path')->nullable();
+            $table->integer('visited')->default(0);
 
         });
     }
