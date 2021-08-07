@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class CitySector extends Model
 {
     use HasFactory;
+
+    public function annonces(){
+        return $this->hasMany(Annonce::class, 'city_sector_id', 'id');
+    }
 }

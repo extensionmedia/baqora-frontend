@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Annonce;
-use App\Models\AnnonceImage;
+use App\Models\AnnonceCategory;
+use App\Models\City;
+use App\Models\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class AnnonceController extends Controller
 {
 
     public function show(Annonce $annonce){
         return view('annonce.show.index', ['annonce'=>$annonce]);
+    }
+
+    public function getByCategory(AnnonceCategory $category){
+        dd($category->annonces()->count());
+    }
+
+    public function getByCity(City $city){
+        dd($city->annonces()->count());
+    }
+
+    public function getByClient(Client $client){
+        dd($client->annonces()->count());
     }
 
     public function slug($string, $separator = '-') {
@@ -34,6 +46,16 @@ class AnnonceController extends Controller
         return $string;
     }
 
+    public function create_category_slug(){
+        $category = AnnonceCategory::all();
+        foreach($category as $a){
+
+                echo $a->annonce_category_name . ' : ' . $this->slug($a->annonce_category_name) . '<br>';
+                $a->slug = $this->slug($a->annonce_category_name)."-".$a->id;
+                $a->save();
+
+        }
+    }
     public function create_slug(){
         $annonces = Annonce::all();
         foreach($annonces as $a){

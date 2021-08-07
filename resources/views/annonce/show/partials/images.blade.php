@@ -1,8 +1,8 @@
-<div class="relative w-full h-96 rounded-lg shadow overflow-hidden bg-gray-50">
-    <div class="absolute top-0 block h-full w-full bg-red-500">
+<div class="w-full h-96 rounded-lg shadow overflow-hidden bg-gray-50">
+    <div class="block h-full w-full bg-red-500 z-0">
         <img
             alt="Snowy mountain lake"
-            class="screen object-cover min-w-full h-full"
+            class="screen object-cover min-w-full h-full z-0"
             src="/storage/{{$annonce->default_image($annonce->annonce_UID)}}"
         />
     </div>

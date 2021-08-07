@@ -50,7 +50,7 @@
     <h1 class="text-bold text-xl my-2">Top Categories</h1>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 z-0">
         @foreach ($categories as $category)
-            <a href="{{ $category->slug }}" class="border mb-4 border-gray-200 border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4 overflow-hidden">
+            <a href="{{ route('category.annonces', $category) }}" class="border mb-4 border-gray-200 border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4 overflow-hidden">
                 <img src="storage/{{ $category->picture }}" class="rounded shadow flex-1" />
                 <div class="bg-red-50 w-full text-center text-gray-600 py-1">
                     {{ $category->annonce_category_name }}

@@ -11,7 +11,16 @@ Route::get('/annonce/{annonce}', [AnnonceController::class, 'show'])->name('anno
 
 Route::get('client/phone/{client}', [ClientController::class, 'get_phone'])->name('client.get_phone');
 
+Route::get('annonces/category/{category}', [AnnonceController::class, 'getByCategory'])->name('category.annonces');
+Route::get('annonces/city/{city}', [AnnonceController::class, 'getByCity'])->name('city.annonces');
+Route::get('annonces/client/{client}', [AnnonceController::class, 'getByClient'])->name('client.annonces');
+
 Route::get('/annonce_slug', [AnnonceController::class, 'create_slug']);
+Route::get('/category_slug', [AnnonceController::class, 'create_category_slug']);
+
+
+
+
 Route::get('/images', [AnnonceController::class, 'images']);
 Route::get('/correct_images', [AnnonceController::class, 'correct_images']);
 Route::get('/imagesToJson', [AnnonceController::class, 'imagesToJson'])->name('imagesToJson');
