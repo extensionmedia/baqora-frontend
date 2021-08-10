@@ -3,21 +3,17 @@
         <img
             alt="Snowy mountain lake"
             class="screen object-cover min-w-full h-full z-0"
-            src="{{$annonce->default_image($annonce->annonce_UID)}}"
+            src="/{{$annonce->default_image($annonce->annonce_UID)}}"
         />
     </div>
 </div>
-@foreach ($annonce->images()->get() as $img)
-        @if ($loop->index == 0)
-            <div class="bg-gray-200 py-2 text-center flex justify-center gap-4 rounded-lg my-2 w-full overflow-auto">
-        @endif
-                <div class="rounded-lg overflow-hidden h-12 shadow border-2 @if($img->is_default) border-red-300 @endif hover:border-red-300 cursor-pointer">
-                    <img class="item h-12" src="/storage/{{$img->image_path}}">
-                </div>
-        @if ($loop->index == 0)
-            </div>
-        @endif
+<div class="bg-gray-200 py-2 text-center flex justify-center gap-4 rounded-lg my-2 w-full overflow-auto">
+    @foreach ($annonce->images()->get() as $img)
+        <div class="rounded-lg overflow-hidden h-12 shadow border-2 @if($img->is_default) border-red-300 @endif hover:border-red-300 cursor-pointer">
+            <img class="item h-12" src="/storage/{{$img->image_path}}">
+        </div>
     @endforeach
+</div>
 <script>
     $(document).ready(function(){
         $('.item').on('click', function(){
