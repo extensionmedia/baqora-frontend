@@ -14,6 +14,12 @@
     @include('container.partials.favicon')
 </head>
 <body>
+    @if (!Session::get('cookie_accepted'))
+        <div class="modal bg-white bg-opacity-50 fixed top-0 right-0 bottom-0 z-50 w-full">
+            @include('modals.cookies')
+        </div>
+    @endif
+
     @include('container.topbar')
     <div class="pt-16">
         @yield('content')

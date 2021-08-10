@@ -1,7 +1,8 @@
 /node_modules
 /public/hot
-/storage/app/public/temp
-/storage/app/public/annonces
+/public/storage
+/storage/app/public/temp/
+/storage/app/public/annonces/
 /storage/*.key
 /vendor
 .env
