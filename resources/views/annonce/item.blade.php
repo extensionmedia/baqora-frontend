@@ -1,6 +1,6 @@
 <a href="{{route('annonce.show', $annonce)}}" class="md:flex border rounded-lg mb-4 overflow-hidden cursor-pointer hover:shadow hover:border-red-200">
     <div class="w-full md:w-60 max-h-36 overflow-hidden relative">
-        <img class="w-full" src="storage/{{ $annonce->default_image($annonce->annonce_UID) }}">
+        <img class="w-full object-none object-center" src="{{ $annonce->default_image($annonce->annonce_UID) }}">
         <div class="rounded-lg text-xs px-1 py-1 bg-red-100 bg-opacity-20 absolute top-0 m-2">
             <i class="fas fa-camera"></i> {{$annonce->images->count()}}
         </div>

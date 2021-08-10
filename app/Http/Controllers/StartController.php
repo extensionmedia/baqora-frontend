@@ -7,6 +7,7 @@ use App\Models\AnnonceCategory;
 use App\Models\City;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StartController extends Controller
 {

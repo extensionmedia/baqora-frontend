@@ -45,6 +45,9 @@ class Annonce extends Model
                 return $ai->image_path;
             }
         }
-        return $annonce_images->first()->image_path;
+        if($annonce_images->count())
+            return 'storage/'.$annonce_images->first()->image_path;
+        else
+            return "https://keeleandfinchdentaloffice.com/wp-content/uploads/2016/10/orionthemes-placeholder-image-750x750.jpg";
     }
 }
