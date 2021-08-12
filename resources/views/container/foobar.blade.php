@@ -17,7 +17,7 @@
         <div class=" mb-4" style="break-inside: avoid;">
             <div class="border-b border-gray-700 pb-2 mb-2 text-gray-200 block text-sm uppercase"> à propos du baqora </div>
             <a href="" class="text-gray-500 block text-xs hover:underline py-1"> Qui sommes-nous? </a>
-            <a href="" class="text-gray-500 block text-xs hover:underline py-1"> Nous rejoindre </a>
+            <a href="{{route('pages.contact')}}" class="text-gray-500 block text-xs hover:underline py-1"> Nous rejoindre </a>
             <a href="" class="text-gray-500 block text-xs hover:underline py-1"> Nos differents projets </a>
         </div>
 

@@ -3,8 +3,17 @@
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StartController;
+use App\Models\AnnonceCategory;
 use Illuminate\Support\Facades\Route;
 
+// Static Pages Routes
+
+Route::get('/contact',function(){
+    return view('pages.contact-us')->with(['categories'=>AnnonceCategory::where('category_status', 1)
+    ->where('annonce_category_id',-1)
+    ->orderBy('level')
+    ->get()]);
+})->name('pages.contact');
 
 Route::get('/', [StartController::class, 'index'])->name('start');
 Route::get('/annonce/{annonce}', [AnnonceController::class, 'show'])->name('annonce.show');

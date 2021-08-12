@@ -13,7 +13,11 @@ class AnnonceController extends Controller
 {
 
     public function show(Annonce $annonce){
-        return view('annonce.show.index', ['annonce'=>$annonce]);
+        $categories = AnnonceCategory::where('category_status', 1)
+                                        ->where('annonce_category_id',-1)
+                                        ->orderBy('level')
+                                        ->get();
+        return view('annonce.show.index', ['annonce'=>$annonce, 'categories'=>$categories]);
     }
 
     public function getByCategory(AnnonceCategory $category){

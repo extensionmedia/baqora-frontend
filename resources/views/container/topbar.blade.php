@@ -1,4 +1,4 @@
-<div class="fixed z-100 top-0 shadow flex items-center h-16 shadow bg-white w-full">
+<div class="fixed top-0 shadow flex items-center h-16 shadow bg-white w-full">
     <div class="flex items-center justify-between mx-auto w-full xl:w-2/3 px-4 lg:px-8 ">
         <div class="flex items-center gap-6">
             <a href="{{route('start')}}" class="flex items-center gap-1">

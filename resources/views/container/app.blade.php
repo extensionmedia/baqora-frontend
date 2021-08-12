@@ -24,5 +24,8 @@
     <div class="pt-16">
         @yield('content')
     </div>
+
+    @include('container.foobar')
+
 </body>
 </html>
