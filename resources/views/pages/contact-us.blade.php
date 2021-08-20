@@ -1,6 +1,11 @@
 @extends('container.app')
 @section('content')
     <div class="mx-auto w-full xl:w-2/3 px-4 lg:px-8">
+        <div class="py-4">
+            <a href="{{route('start')}}" class="bg-gray-100 rounded-lg hover:bg-gray-200 text-xs px-1 text-red-400"> Acceuil </a> <i class="text-xs fas fa-angle-right"></i>
+            <a href="" class="bg-gray-100 rounded-lg hover:bg-gray-200 text-xs px-1 text-red-400"> Pages </a> <i class="text-xs fas fa-angle-right"></i>
+            <span class="text-xs"> contact-Us </span>
+        </div>
         <div class="w-full h-52 overflow-hidden rounded-b-lg">
           <img class="screen object-cover min-w-full h-full z-0" src="/storage/images/contact-office.jpg" alt="">
         </div>

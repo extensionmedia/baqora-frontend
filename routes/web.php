@@ -15,6 +15,14 @@ Route::get('/contact',function(){
     ->get()]);
 })->name('pages.contact');
 
+Route::get('/about',function(){
+    return view('pages.about-us')->with(['categories'=>AnnonceCategory::where('category_status', 1)
+    ->where('annonce_category_id',-1)
+    ->orderBy('level')
+    ->get()]);
+})->name('pages.about');
+
+
 Route::get('/', [StartController::class, 'index'])->name('start');
 Route::get('/annonce/{annonce}', [AnnonceController::class, 'show'])->name('annonce.show');
 
