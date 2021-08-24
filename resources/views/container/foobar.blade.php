@@ -25,12 +25,5 @@
             <a href="{{route('pages.conditions')}}" class="text-gray-500 block text-xs hover:underline py-1"> Conditions générales d’utilisation </a>
             <a href="{{route('pages.vie-prive')}}" class="text-gray-500 block text-xs hover:underline py-1"> Vie privée / cookies </a>
         </div>
-        <div class=" mb-4 hidden" style="break-inside: avoid;">
-            <div class="border-b border-gray-700 pb-2 mb-2 text-gray-200 block text-sm uppercase"> retrouvez-nous sur </div>
-            <a href="" class="text-gray-500 block text-xs hover:underline py-1"> Facebook </a>
-            <a href="" class="text-gray-500 block text-xs hover:underline py-1"> Twitter </a>
-            <a href="" class="text-gray-500 block text-xs hover:underline py-1"> Instagram </a>
-            <a href="" class="text-gray-500 block text-xs hover:underline py-1"> Youtube </a>
-        </div>
     </div>
 </div>
