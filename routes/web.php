@@ -22,6 +22,19 @@ Route::get('/about',function(){
     ->get()]);
 })->name('pages.about');
 
+Route::get('/conditions-general-d-utilisation',function(){
+    return view('pages.conditions-general')->with(['categories'=>AnnonceCategory::where('category_status', 1)
+    ->where('annonce_category_id',-1)
+    ->orderBy('level')
+    ->get()]);
+})->name('pages.conditions');
+
+Route::get('/reglement-de-publication',function(){
+    return view('pages.vie-prive')->with(['categories'=>AnnonceCategory::where('category_status', 1)
+    ->where('annonce_category_id',-1)
+    ->orderBy('level')
+    ->get()]);
+})->name('pages.vie-prive');
 
 Route::get('/', [StartController::class, 'index'])->name('start');
 Route::get('/annonce/{annonce}', [AnnonceController::class, 'show'])->name('annonce.show');
