@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Annonce;
 use App\Models\AnnonceCategory;
 use App\Models\City;
+use App\Models\CitySector;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -13,18 +14,62 @@ class AnnonceController extends Controller
 {
 
     public function search(Request $r){
-        if($r->has('cat')){
-            $category = AnnonceCategory::where('slug', '=', $r->cat)->firstOrFail();
-            return view('search.result')->with([
-                'annonces'      =>  $category->annonces()->paginate(25)->appends(request()->query()),
-                'categories'    =>  AnnonceCategory::where('category_status', 1)
-                                    ->where('annonce_category_id',-1)
-                                    ->orderBy('level')
-                                    ->get()
-            ]);
-        }else{
-            dd('doesnt has');
+
+
+        $query_string  = explode('&', $_SERVER['QUERY_STRING']);
+        $params = array();
+
+        foreach($query_string as $param){
+            list($name, $value) = explode('=', $param);
+            $params[urldecode($name)][] = urldecode($value);
         }
+
+
+        $query = Annonce::query();
+        $bread = [];
+
+        if($r->has('text')){
+            $query->where('titre', 'like', "%{$r->text}%");
+        }
+
+        if($r->has('cat')){
+            if($r->cat > 0){
+                $category = AnnonceCategory::where('slug', '=', $r->cat)->firstOrFail();
+                $query->where('annonce_category_id', '=', $category->id);
+                $bread['cat'] = [$category->slug, $category->annonce_category_name];
+            }
+        }
+
+        if($r->has('subcat')){
+            foreach($params["subcat"] as $k=>$sc){
+                $category = AnnonceCategory::where('slug', '=', $sc)->firstOrFail();
+                $query->where('annonce_sous_category_id', '=', $category->id);
+            }
+        }
+
+        if($r->has('city')){
+            if($r->city > 0){
+                $city = City::findOrFail($r->city);
+                $query->where('city_id', '=', $city->id);
+                $bread['city'] = [$city->id, $city->city_name];
+            }
+        }
+
+        if($r->has('city_sector')){
+            foreach($params["city_sector"] as $k=>$s){
+                $sector = CitySector::findOrFail($s);
+                $query->where('city_sector_id', '=', $sector->id);
+            }
+        }
+
+        return view('search.result')->with([
+            'annonces'      =>  $query->orderBy('created_at', 'DESC')->paginate(25)->appends(request()->query()),
+            'categories'    =>  AnnonceCategory::where('category_status', 1)
+                                ->where('annonce_category_id',-1)
+                                ->orderBy('level')
+                                ->get(),
+            'bread'         =>  $bread
+            ]);
     }
 
     public function show(Annonce $annonce){

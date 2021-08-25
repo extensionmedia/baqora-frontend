@@ -3,7 +3,9 @@
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StartController;
+use App\Models\Annonce;
 use App\Models\AnnonceCategory;
+use App\Models\Client;
 use Illuminate\Support\Facades\Route;
 
 // Static Pages Routes
@@ -55,6 +57,39 @@ Route::get('/images', [AnnonceController::class, 'images']);
 Route::get('/correct_images', [AnnonceController::class, 'correct_images']);
 Route::get('/imagesToJson', [AnnonceController::class, 'imagesToJson'])->name('imagesToJson');
 Route::get('/total_images', [AnnonceController::class, 'total_images'])->name('total_images');
+Route::get('/check_if_each_annonce_has_a_client', function(){
+    $annonces = [];
+    foreach(Annonce::all() as $a){
+        if( !$a->client()->count() ){
+            $annonces[] = $a->id;
+        }
+    }
+    echo "total found : " . count($annonces) . "<br>";
+    $clients = [];
+    $index = 0;
+    foreach(Client::all() as $a){
+        if($a->annonces()->count() === 2){
+            if(isset($annonces[$index])){
+                $annonce = Annonce::find($annonces[$index]);
+                echo $annonce->client_id . " : ";
+                $annonce->client_id = $a->id;
+                echo $annonce->client_id."<br>";
+                //$annonce->save();
+                $index++;
+                //$clients[] = $a->id;
+            }
+
+        }
+    }
+
+    //dump($annonces);
+    // foreach(Client::all() as $c){
+    //     if(!$c->annonces()->count()){
+    //         echo $c->nom . " - " . $c->annonces()->count()."<br>";
+    //     }
+    // }
+
+});
 
 
 Route::get('/search/annonce_category/{id}', [StartController::class, 'getSubAnnonceCategorie']);

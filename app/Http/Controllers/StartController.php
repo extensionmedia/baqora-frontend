@@ -42,7 +42,7 @@ class StartController extends Controller
     }
 
     public function getSubAnnonceCategorie($id_annonce_category){
-        $annonce_category = AnnonceCategory::findOrFail($id_annonce_category);
+        $annonce_category = AnnonceCategory::where('slug', '=', $id_annonce_category)->firstOrFail();
         if($annonce_category){
             return $annonce_category->subCategories()->get();
         }
