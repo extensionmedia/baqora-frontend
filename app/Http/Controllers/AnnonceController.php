@@ -12,6 +12,21 @@ use Illuminate\Support\Facades\Storage;
 class AnnonceController extends Controller
 {
 
+    public function search(Request $r){
+        if($r->has('cat')){
+            $category = AnnonceCategory::where('slug', '=', $r->cat)->firstOrFail();
+            return view('search.result')->with([
+                'annonces'      =>  $category->annonces()->paginate(25)->appends(request()->query()),
+                'categories'    =>  AnnonceCategory::where('category_status', 1)
+                                    ->where('annonce_category_id',-1)
+                                    ->orderBy('level')
+                                    ->get()
+            ]);
+        }else{
+            dd('doesnt has');
+        }
+    }
+
     public function show(Annonce $annonce){
         $categories = AnnonceCategory::where('category_status', 1)
                                         ->where('annonce_category_id',-1)

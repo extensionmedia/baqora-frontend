@@ -59,6 +59,7 @@ Route::get('/total_images', [AnnonceController::class, 'total_images'])->name('t
 
 Route::get('/search/annonce_category/{id}', [StartController::class, 'getSubAnnonceCategorie']);
 Route::get('/search/city_sector/{id}', [StartController::class, 'getCitySectors']);
+Route::get('/search', [AnnonceController::class, 'search'])->name('search');
 
 Route::get('session/cookie/save', function(){
     return session(['cookie_accepted'=>true]);
