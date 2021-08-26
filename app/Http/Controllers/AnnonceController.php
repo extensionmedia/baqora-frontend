@@ -32,6 +32,10 @@ class AnnonceController extends Controller
             $query->where('titre', 'like', "%{$r->text}%");
         }
 
+        if($r->has('type')){
+            $query->where('annonce_type_id', '=', $r->type);
+        }
+
         if($r->has('cat')){
             if($r->cat > 0){
                 $category = AnnonceCategory::where('slug', '=', $r->cat)->firstOrFail();
@@ -40,8 +44,8 @@ class AnnonceController extends Controller
             }
         }
 
-        if($r->has('subcat')){
-            foreach($params["subcat"] as $k=>$sc){
+        if($r->has('sous_category_slug')){
+            foreach($params["sous_category_slug"] as $k=>$sc){
                 $category = AnnonceCategory::where('slug', '=', $sc)->firstOrFail();
                 $query->where('annonce_sous_category_id', '=', $category->id);
             }
@@ -55,8 +59,8 @@ class AnnonceController extends Controller
             }
         }
 
-        if($r->has('city_sector')){
-            foreach($params["city_sector"] as $k=>$s){
+        if($r->has('city_sector_id')){
+            foreach($params["city_sector_id"] as $k=>$s){
                 $sector = CitySector::findOrFail($s);
                 $query->where('city_sector_id', '=', $sector->id);
             }
@@ -69,10 +73,48 @@ class AnnonceController extends Controller
                                     ->orderBy('level')
                                     ->get(),
                 'bread'         =>  $bread
-                ]);           
+                ]);
         }else{
             abort(404);
         }
+
+    }
+
+    public function add_to_favorites($annonce_id){
+        //session()->forget('annonces.favorite');
+        if(!session()->has('annonces.favorite')){
+            session()->put('annonces.favorite', []);
+            session()->push('annonces.favorite', $annonce_id);
+        }else{
+            $favs = session()->get('annonces.favorite');
+            session()->forget('annonces.favorite');
+            session()->put('annonces.favorite', []);
+            foreach($favs as $f){
+                if($f !== $annonce_id){
+                    session()->push('annonces.favorite', $f);
+                }
+            }
+            session()->push('annonces.favorite', $annonce_id);
+        }
+        return 'success';
+    }
+
+    public function favorite(){
+
+
+        dd(session()->get('annonces.favorite'));
+        // if($query->count()){
+        //     return view('search.result')->with([
+        //         'annonces'      =>  $query->orderBy('created_at', 'DESC')->paginate(25)->appends(request()->query()),
+        //         'categories'    =>  AnnonceCategory::where('category_status', 1)
+        //                             ->where('annonce_category_id',-1)
+        //                             ->orderBy('level')
+        //                             ->get(),
+        //         'bread'         =>  $bread
+        //         ]);
+        // }else{
+        //     abort(404);
+        // }
 
     }
 

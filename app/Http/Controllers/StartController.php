@@ -19,16 +19,8 @@ class StartController extends Controller
                             ->orderBy('level')
                             ->get();
         });
-
-        $cities = cache()->remember('cities', 60*60*24, function(){
-            return City::where('city_status', 1)
-                        ->orderBy('city_name')
-                        ->get();
-        });
-
         return view('start')->with([
             'categories'    =>  $annonce_categories,
-            'cities'        =>  $cities,
             'annonces'      =>  Annonce::inRandomOrder()->limit(10)->get()
         ]);
     }

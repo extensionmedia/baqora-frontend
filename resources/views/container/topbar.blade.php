@@ -19,9 +19,9 @@
             <div class="text-2xl cursor-pointer hover:text-red-300">
                 <i class="far fa-bell"></i>
             </div>
-            <div class="text-2xl cursor-pointer hover:text-red-300">
+            <a href="{{route('favorite')}}" class="text-2xl cursor-pointer hover:text-red-300">
                 <i class="far fa-heart"></i>
-            </div>
+            </a>
             <div class="text-2xl cursor-pointer hover:text-red-300">
                 <i class="far fa-user"></i>
             </div>
