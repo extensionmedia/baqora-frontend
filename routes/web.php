@@ -100,3 +100,7 @@ Route::get('session/cookie/save', function(){
     return session(['cookie_accepted'=>true]);
 })->name('cookie.accepted');
 
+Route::get('/test', function(){
+    return foo();
+});
+

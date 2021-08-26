@@ -61,15 +61,19 @@ class AnnonceController extends Controller
                 $query->where('city_sector_id', '=', $sector->id);
             }
         }
+        if($query->count()){
+            return view('search.result')->with([
+                'annonces'      =>  $query->orderBy('created_at', 'DESC')->paginate(25)->appends(request()->query()),
+                'categories'    =>  AnnonceCategory::where('category_status', 1)
+                                    ->where('annonce_category_id',-1)
+                                    ->orderBy('level')
+                                    ->get(),
+                'bread'         =>  $bread
+                ]);           
+        }else{
+            abort(404);
+        }
 
-        return view('search.result')->with([
-            'annonces'      =>  $query->orderBy('created_at', 'DESC')->paginate(25)->appends(request()->query()),
-            'categories'    =>  AnnonceCategory::where('category_status', 1)
-                                ->where('annonce_category_id',-1)
-                                ->orderBy('level')
-                                ->get(),
-            'bread'         =>  $bread
-            ]);
     }
 
     public function show(Annonce $annonce){

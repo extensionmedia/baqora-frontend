@@ -25,7 +25,8 @@
         @yield('content')
     </div>
 
-    @include('container.foobar')
+    {{-- Drow the foobar with categories and pages --}}
+    {{foo()}}
 
 </body>
 </html>
