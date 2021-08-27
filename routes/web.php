@@ -7,6 +7,7 @@ use App\Models\Annonce;
 use App\Models\AnnonceCategory;
 use App\Models\Client;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 // Static Pages Routes
 
@@ -58,3 +59,18 @@ Route::get('session/cookie/save', function(){
 
 Route::get('/favorites', [AnnonceController::class, 'favorite'])->name('favorite');
 Route::get('/favorites/add/{annonce_id}', [AnnonceController::class, 'add_to_favorites'])->name('favorite.add');
+
+Route::get('/dropbox', function(){
+
+    // $url = Storage::disk('dropbox')->url('annonces/image.jpg');
+    // echo "<img class='h-16 w-16' src='".Storage::url($f)."'>";
+    // dd($url);
+    $files = Storage::disk('dropbox')->allFiles('annonces');
+    // Storage::disk('dropbox')->put('test.txt', 'Hello World');
+
+    //$path = Storage::disk('dropbox')->getAdapter()->getPathPrefix();
+    // dd(Storage::disk('dropbox'));
+    foreach($files as $f){
+        echo "<img style='width:64px' src='".Storage::disk('dropbox')->url($f)."'>";
+    }
+});
