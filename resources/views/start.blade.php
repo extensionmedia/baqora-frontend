@@ -18,7 +18,7 @@
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8 z-0">
         @foreach ($categories as $category)
             <a href="/search?cat={{ $category->slug }}" class="border mb-4 border-gray-200 border-2 rounded hover:shadow-lg hover:border-red-300 hover:border-4">
-                <img src="storage/{{ $category->picture }}" class="" />
+                <img src="{{ Storage::disk('local')->url($category->picture) }}" class="" />
                 <div class="bg-red-50 w-full text-center text-gray-600 py-1">
                     {{ $category->annonce_category_name }}
                 </div>

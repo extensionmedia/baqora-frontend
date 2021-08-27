@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AnnonceStatusTableSeeder::class);
         $this->call(AnnoncesTableSeeder::class);
         $this->call(AnnonceCategoriesTableSeeder::class);
+        $this->call(AnnonceFavoriteTableSeeder::class);
     }
 }

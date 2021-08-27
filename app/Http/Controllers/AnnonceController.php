@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Annonce;
 use App\Models\AnnonceCategory;
+use App\Models\AnnonceImage;
 use App\Models\City;
 use App\Models\CitySector;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AnnonceController extends Controller
 {
@@ -222,17 +224,17 @@ class AnnonceController extends Controller
 
     public function imagesToJson(Request $r){
 
-        foreach(Annonce::all() as $a){
-            if($a->images->count()){
-                $test = $a->images->where('is_default', true);
-                if(!$test){
-                    echo $a->annonce_UID . 'has no default <br>';
-                }
-            }else{
-                echo $a->annonce_UID . 'has no image at all <br>';
-            }
+        // foreach(Annonce::all() as $a){
+        //     if($a->images->count()){
+        //         $test = $a->images->where('is_default', true);
+        //         if(!$test){
+        //             echo $a->annonce_UID . 'has no default <br>';
+        //         }
+        //     }else{
+        //         echo $a->annonce_UID . 'has no image at all <br>';
+        //     }
 
-        }
+        // }
 
 
         // $i = 0;
@@ -304,6 +306,23 @@ class AnnonceController extends Controller
         //                         'image_path'    =>  'annonces/' . $r->uid . '/' . $path["basename"]
         //                     ]);
         //                 }
+        //             }
+        //         }
+        // }
+
+
+        // if($r->uid){
+        //     $annonce = Annonce::where('annonce_UID', $r->uid)->first();
+        //     if($annonce)
+        //         foreach(Storage::disk('public')->listContents('annonces/'.$r->uid) as $path){
+        //             if($path["type"] == "file"){
+        //                 AnnonceImage::create([
+        //                     'annonce_id'    =>  $annonce->id,
+        //                     'annonce_UID'   =>  $annonce->annonce_UID,
+        //                     'is_default'    =>  Str::contains($path["basename"], '(default)')? true: false,
+        //                     'image_path'    =>  'annonces/' . $r->uid . '/' . $path["basename"]
+        //                 ]);
+        //                 echo 'saved';
         //             }
         //         }
         // }
