@@ -101,20 +101,17 @@ class AnnonceController extends Controller
 
     public function favorite(){
 
+        $my_favorites = session()->get('annonces.favorite');
+        $annonces = Annonce::whereIn('id', $my_favorites);
 
-        dd(session()->get('annonces.favorite'));
-        // if($query->count()){
-        //     return view('search.result')->with([
-        //         'annonces'      =>  $query->orderBy('created_at', 'DESC')->paginate(25)->appends(request()->query()),
-        //         'categories'    =>  AnnonceCategory::where('category_status', 1)
-        //                             ->where('annonce_category_id',-1)
-        //                             ->orderBy('level')
-        //                             ->get(),
-        //         'bread'         =>  $bread
-        //         ]);
-        // }else{
-        //     abort(404);
-        // }
+        if($annonces->count()){
+            return view('search.result')->with([
+                'annonces'      =>  $annonces->orderBy('created_at', 'DESC')->paginate(25),
+                'bread'         =>  []
+                ]);
+        }else{
+            abort(404);
+        }
 
     }
 
