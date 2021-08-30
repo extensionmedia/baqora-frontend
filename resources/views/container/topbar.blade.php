@@ -12,12 +12,12 @@
                 </span>
             </a>
         </div>
-        <div class="flex gap-6 relative">
-            <div class="text-2xl cursor-pointer hover:text-red-300">
-                <i class="fas fa-search"></i>
-            </div>
-            <div class="text-2xl cursor-pointer hover:text-red-300">
+        <div class="flex gap-6">
+            <div class="show_popup relative text-2xl cursor-pointer hover:text-red-300">
                 <i class="far fa-bell"></i>
+                <div class="absolute top-0 right-0 mt-12 w-80 shadow-lg popup hidden animate__animated">
+                    @include('container.partials.notifications')
+                </div>
             </div>
             <a href="{{route('favorite')}}" class="text-2xl cursor-pointer hover:text-red-300">
                 <i class="far fa-heart"></i>
@@ -25,9 +25,15 @@
             <div class="text-2xl cursor-pointer hover:text-red-300">
                 <i class="far fa-user"></i>
             </div>
-            <div class="absolute top-0 mt-12 -ml-32 w-64 h-full border rounded bg-white border-red-50">
-                notes
-            </div>
+
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('.show_popup').on('click', function(){
+            $(".popup").toggleClass('hidden');
+            $(".popup").toggleClass('animate__headShake');
+        });
+    });
+</script>

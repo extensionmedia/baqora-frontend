@@ -4,7 +4,7 @@
             <div class="border-b mb-4 pb-4" style="break-inside: avoid;">
                 <a href="/search?cat={{ $category->slug }}" class="text-red-800 block text-sm hover:underline"> {{ $category->annonce_category_name }} </a>
                 @foreach ($category->subCategories as $sub)
-                    <a href="/search?subcat={{ $sub->slug }}" class="text-gray-500 block text-xs hover:underline"> {{ $sub->annonce_category_name }} </a>
+                    <a href="/search?sous_category_slug={{ $sub->slug }}" class="text-gray-500 block text-xs hover:underline"> {{ $sub->annonce_category_name }} </a>
                 @endforeach
             </div>
         @endforeach

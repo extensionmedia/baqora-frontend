@@ -116,6 +116,7 @@ class AnnonceController extends Controller
     public function favorite(){
 
         $my_favorites = session()->get('annonces.favorite');
+        if(!$my_favorites) abort(404);
         $annonces = Annonce::whereIn('id', $my_favorites);
 
         if($annonces->count()){
