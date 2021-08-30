@@ -134,6 +134,8 @@ class AnnonceController extends Controller
                                         ->where('annonce_category_id',-1)
                                         ->orderBy('level')
                                         ->get();
+        $annonce->visited += 1;
+        $annonce->save();
         return view('annonce.show.index', ['annonce'=>$annonce, 'categories'=>$categories]);
     }
 

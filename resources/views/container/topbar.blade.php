@@ -12,7 +12,7 @@
                 </span>
             </a>
         </div>
-        <div class="flex gap-6">
+        <div class="flex gap-6 relative">
             <div class="text-2xl cursor-pointer hover:text-red-300">
                 <i class="fas fa-search"></i>
             </div>
@@ -24,6 +24,9 @@
             </a>
             <div class="text-2xl cursor-pointer hover:text-red-300">
                 <i class="far fa-user"></i>
+            </div>
+            <div class="absolute top-0 mt-12 -ml-32 w-64 h-full border rounded bg-white border-red-50">
+                notes
             </div>
         </div>
     </div>
