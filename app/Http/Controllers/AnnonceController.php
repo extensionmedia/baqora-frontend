@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Annonce;
 use App\Models\AnnonceCategory;
+use App\Models\AnnonceFavorite;
 use App\Models\AnnonceImage;
 use App\Models\City;
 use App\Models\CitySector;
 use App\Models\Client;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -82,7 +84,7 @@ class AnnonceController extends Controller
 
     }
 
-    public function add_to_favorites($annonce_id){
+    public function add_to_favorites($annonce_id, $action=1){
         //session()->forget('annonces.favorite');
         if(!session()->has('annonces.favorite')){
             session()->put('annonces.favorite', []);
@@ -98,7 +100,17 @@ class AnnonceController extends Controller
             }
             session()->push('annonces.favorite', $annonce_id);
         }
-        return 'success';
+        if($action){
+            AnnonceFavorite::create([
+                "created_at"    =>  Carbon::now(),
+                "user_id"    =>  0,
+                "annonce_id"    =>  $annonce_id
+            ]);
+        }else{
+            AnnonceFavorite::orderBy('id', 'desc')->limit(1)->delete();
+        }
+        $annonce = Annonce::find($annonce_id);
+        return $annonce->favorites->count();
     }
 
     public function favorite(){

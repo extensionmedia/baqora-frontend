@@ -55,7 +55,7 @@ Route::get('session/cookie/save', function(){
 
 
 Route::get('/favorites', [AnnonceController::class, 'favorite'])->name('favorite');
-Route::get('/favorites/add/{annonce_id}', [AnnonceController::class, 'add_to_favorites'])->name('favorite.add');
+Route::get('/favorites/add/{annonce_id}/{action}', [AnnonceController::class, 'add_to_favorites'])->name('favorite.add');
 
 // Route::get('/dropbox', function(){
 

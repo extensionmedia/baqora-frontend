@@ -50,4 +50,8 @@ class Annonce extends Model
         else
             return "https://keeleandfinchdentaloffice.com/wp-content/uploads/2016/10/orionthemes-placeholder-image-750x750.jpg";
     }
+
+    public function favorites(){
+        return $this->hasMany(AnnonceFavorite::class, 'annonce_id', 'id');
+    }
 }
