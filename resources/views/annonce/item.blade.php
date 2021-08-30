@@ -39,7 +39,7 @@
                     </div>
                     <div class="flex gap-2 pb-2">
                         <button class="hover:text-red-300 hover:font-bold text-lg add_this_to_favorite" data-action="1" value="{{$annonce->id}}"><i class="far fa-heart"></i> <span class="text-xs text-gray-300"> {{$annonce->favorites->count()}}</span></button>
-                        <button class="text-lg"><i class="far fa-eye"></i> <span class="text-xs text-gray-300"> 12 </span></button>
+                        <button class="text-lg"><i class="far fa-eye"></i> <span class="text-xs text-gray-300"> {{$annonce->visited}} </span></button>
                     </div>
                 </div>
             </div>
