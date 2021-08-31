@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StartController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -57,43 +58,4 @@ Route::get('session/cookie/save', function(){
 Route::get('/favorites', [AnnonceController::class, 'favorite'])->name('favorite');
 Route::get('/favorites/add/{annonce_id}/{action}', [AnnonceController::class, 'add_to_favorites'])->name('favorite.add');
 
-// Route::get('/dropbox', function(){
-
-//     // $url = Storage::disk('dropbox')->url('annonces/image.jpg');
-//     // echo "<img class='h-16 w-16' src='".Storage::url($f)."'>";
-//     // dd($url);
-//     $files = Storage::disk('dropbox')->allFiles('annonce_category');
-//     // Storage::disk('dropbox')->put('test.txt', 'Hello World');
-
-//     //$path = Storage::disk('dropbox')->getAdapter()->getPathPrefix();
-//     // dd(Storage::disk('dropbox'));
-//     foreach($files as $f){
-//         echo "<img style='width:64px' src='".Storage::disk('dropbox')->url($f)."'>";
-//     }
-// });
-
-// Route::get('/size', function(){
-
-//     $files = Storage::disk('public')->allFiles('annonces');
-//     foreach($files as $f){
-
-//         $img = Image::make('storage/'.$f);
-//         //dump($img);
-//         //dump($img);
-
-
-//         $units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
-//         $bytes = $img->filesize();
-//         $bytes_ = $bytes;
-//         if($bytes > 10000000){
-//             if($bytes > 1024)
-//             for ($i = 0; $bytes > 1024; $i++) {
-//                 $bytes /= 1024;
-//             }
-
-//             dump($img->dirname.'/'.$img->basename . " -> " . round($bytes, 2) . ' ' . $units[$i]);
-//             // $img->save('storage/'.$f, 60);
-//         }
-
-//     }
-// });
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');

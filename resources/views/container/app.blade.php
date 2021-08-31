@@ -16,16 +16,8 @@
 </head>
 <body>
 
-    <div class="menu-container bg-black bg-opacity-20 fixed top-0 right-0 bottom-0 z-50 w-full close_me hidden">
-        <div class="menu w-80 h-full bg-white ml-auto shadow">
-            menu
-        </div>
-    </div>
-    
     @if (!Session::get('cookie_accepted'))
-        <div class="modal bg-black bg-opacity-30 fixed top-0 right-0 bottom-0 z-50 w-full hidden wait" data-s="2000">
-            @include('modals.cookies')
-        </div>
+        @include('modals.modal',['content'=>'modals.cookies', 'type'=>1])
     @endif
 
 
@@ -43,18 +35,18 @@
             var s = $(this).data('s');
             var that = $(this);
             var timer = setTimeout(function(){
-                that.removeClass('hidden').addClass('animate__animated animate__headShake');
-
+                that.removeClass('hidden')
+                that.find('.modal_content').addClass('animate__animated animate__fadeInDown');
             }, s);
         });
-
-        $('.close_me').on('click', function(){
-            var menu = $(this).find('.menu');
-            var that = $(this);
-            menu.addClass('animate__fadeOutRightBig');
-            menu.one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
-                that.addClass('hidden');
-            });
+        $(document).on('click', '.modal_close', function(e){
+            if(e.target == this){
+                var that = $(this);
+                $('.modal_content').addClass('animate__animated animate__fadeOutUp')
+                $('.modal_content').one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
+                    that.remove();
+                });
+            }
         });
     })
 </script>

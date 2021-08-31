@@ -1,4 +1,4 @@
-<div class="w-11/12 md:w-2/3 rounded-lg border bg-white py-8 px-4 md:p-12 shadow mx-auto mt-12">
+<div class="modal_content w-11/12 md:w-2/3 rounded-lg border bg-white py-8 px-4 md:p-12 shadow mx-auto mt-12">
     <div class="w-full text-center text-red-300 text-3xl">
         BAQORA.ma {{Session::get('cookie_accepted')}}
     </div>

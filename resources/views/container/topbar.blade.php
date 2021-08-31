@@ -22,7 +22,7 @@
             <a href="{{route('favorite')}}" class="text-2xl cursor-pointer hover:text-red-300">
                 <i class="far fa-heart"></i>
             </a>
-            <div class="show_menu text-2xl cursor-pointer hover:text-red-300">
+            <div class="show_login text-2xl cursor-pointer hover:text-red-300">
                 <i class="far fa-user"></i>
             </div>
 
@@ -34,6 +34,10 @@
         $('.show_popup').on('click', function(){
             $(".popup").toggleClass('hidden');
             $(".popup").toggleClass('animate__headShake');
+        });
+
+        $('.show_login').click(function(){
+            $('body').append(`@include('modals.modal',['content'=>'modals.login', 'type'=>0]) `);
         });
 
         $('.show_menu').on('click', function(){
