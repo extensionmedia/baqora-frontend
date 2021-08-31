@@ -15,11 +15,20 @@
     @include('container.partials.favicon')
 </head>
 <body>
+
+    <div class="menu-container bg-black bg-opacity-20 fixed top-0 right-0 bottom-0 z-50 w-full close_me hidden">
+        <div class="menu w-80 h-full bg-white ml-auto shadow">
+            menu
+        </div>
+    </div>
+    
     @if (!Session::get('cookie_accepted'))
-        <div class="modal bg-white bg-opacity-50 fixed top-0 right-0 bottom-0 z-50 w-full">
+        <div class="modal bg-black bg-opacity-30 fixed top-0 right-0 bottom-0 z-50 w-full hidden wait" data-s="2000">
             @include('modals.cookies')
         </div>
     @endif
+
+
 
     @include('container.topbar')
     <div class="pt-16">
@@ -28,6 +37,26 @@
 
     {{-- Drow the foobar with categories and pages --}}
     {{foo()}}
+<script>
+    $(document).ready(function(){
+        $('.wait').each(function(){
+            var s = $(this).data('s');
+            var that = $(this);
+            var timer = setTimeout(function(){
+                that.removeClass('hidden').addClass('animate__animated animate__headShake');
 
+            }, s);
+        });
+
+        $('.close_me').on('click', function(){
+            var menu = $(this).find('.menu');
+            var that = $(this);
+            menu.addClass('animate__fadeOutRightBig');
+            menu.one("animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd", function(){
+                that.addClass('hidden');
+            });
+        });
+    })
+</script>
 </body>
 </html>
