@@ -9,6 +9,7 @@ use App\Models\AnnonceImage;
 use App\Models\City;
 use App\Models\CitySector;
 use App\Models\Client;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -69,6 +70,15 @@ class AnnonceController extends Controller
                 $query->where('city_sector_id', '=', $sector->id);
             }
         }
+
+        if($r->has('client')){
+            if($r->client > 0){
+                $client = Client::where('id', '=', $r->client)->firstOrFail();
+                $query->where('client_id', '=', $client->id);
+                $bread['user'] = [$client->id, $client->nom];
+            }
+        }
+
         if($query->count()){
             return view('search.result')->with([
                 'annonces'      =>  $query->orderBy('created_at', 'DESC')->paginate(25)->appends(request()->query()),

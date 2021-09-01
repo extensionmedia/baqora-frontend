@@ -28,8 +28,6 @@ Route::get('/reglement-de-publication',function(){
 Route::get('/', [StartController::class, 'index'])->name('start');
 Route::get('/annonce/{annonce}', [AnnonceController::class, 'show'])->name('annonce.show');
 
-Route::get('client/phone/{client}', [ClientController::class, 'get_phone'])->name('client.get_phone');
-
 Route::get('annonces/category/{category}', [AnnonceController::class, 'getByCategory'])->name('category.annonces');
 Route::get('annonces/city/{city}', [AnnonceController::class, 'getByCity'])->name('city.annonces');
 Route::get('annonces/client/{client}', [AnnonceController::class, 'getByClient'])->name('client.annonces');
@@ -58,4 +56,5 @@ Route::get('session/cookie/save', function(){
 Route::get('/favorites', [AnnonceController::class, 'favorite'])->name('favorite');
 Route::get('/favorites/add/{annonce_id}/{action}', [AnnonceController::class, 'add_to_favorites'])->name('favorite.add');
 
-Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+Route::get('/client/create', [ClientController::class, 'create'])->name('client.create');
+Route::post('/client/store', [ClientController::class, 'store'])->name('client.store');

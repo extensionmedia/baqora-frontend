@@ -28,7 +28,7 @@
 
     <div class="text-center-w-full text-xs">
         Pas encore inscrit?
-        <a href="{{route('user.create')}}" class="text-right w-full text-red-300 underline ">
+        <a href="{{route('client.create')}}" class="text-right w-full text-red-300 underline ">
              S'inscrire gratuitement.
         </a>
     </div>

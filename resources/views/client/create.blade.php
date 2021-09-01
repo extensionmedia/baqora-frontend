@@ -15,18 +15,29 @@
         <hr>
     </div>
 
+    
     <div class="mx-auto w-full xl:w-2/3 px-4 lg:px-8 mt-8 mb-12">
-        <form class="w-full">
+        @if ($errors->any())
+            <div class="border border-red-100 bg-red-50 py-2 px-3 mb-4 text-xs">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class="mb-1 text-red-500 p-1"><i class="far fa-dot-circle"></i> {{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form method="POST" action="{{route('client.store')}}" class="w-full">
+            @csrf
             <h2 class="text-gray-600 text-xl mb-4 text-red-300">
                 Formulaire
             </h2>
             <div class="mb-4">
-                <label for="name" class="block text-sm text-gray-600">Votre Nom</label>
-                <input class="p-2 border rounded w-full" type="text" name="name" id="name" placeholder="Votre Nom...">
+                <label for="nom" class="block text-sm text-gray-600">Votre Nom</label>
+                <input class="p-2 border rounded w-full" type="text" name="nom" id="nom" placeholder="Votre Nom...">
             </div>
             <div class="mb-4">
-                <label for="phone" class="block text-sm text-gray-600">Votre Téléphone</label>
-                <input class="p-2 border rounded w-full" type="phone" name="phone" id="phone" placeholder="+2126666666">
+                <label for="telephone_01" class="block text-sm text-gray-600">Votre Téléphone</label>
+                <input class="p-2 border rounded w-full" type="phone" name="telephone_01" id="telephone_01" placeholder="+2126666666">
             </div>
             <div class="mb-4">
                 <label for="email" class="block text-sm text-gray-600">Votre Email</label>
