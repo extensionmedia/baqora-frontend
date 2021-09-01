@@ -26,6 +26,7 @@ Route::get('/reglement-de-publication',function(){
 })->name('pages.vie-prive');
 
 Route::get('/', [StartController::class, 'index'])->name('start');
+Route::get('/annonce/create', [AnnonceController::class, 'create'])->name('annonce.create');
 Route::get('/annonce/{annonce}', [AnnonceController::class, 'show'])->name('annonce.show');
 
 Route::get('annonces/category/{category}', [AnnonceController::class, 'getByCategory'])->name('category.annonces');
@@ -58,3 +59,4 @@ Route::get('/favorites/add/{annonce_id}/{action}', [AnnonceController::class, 'a
 
 Route::get('/client/create', [ClientController::class, 'create'])->name('client.create');
 Route::post('/client/store', [ClientController::class, 'store'])->name('client.store');
+Route::get('/client/phone/{client}', [ClientController::class, 'get_phone'])->name('client.get_phone');

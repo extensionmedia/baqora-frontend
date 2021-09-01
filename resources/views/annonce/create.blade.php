@@ -3,8 +3,8 @@
     <div class="mx-auto w-full xl:w-2/3 px-4 lg:px-8">
         <div class="py-4">
             <a href="{{route('start')}}" class="bg-gray-100 rounded-lg hover:bg-gray-200 text-xs px-1 text-red-400"> Acceuil </a> <i class="text-xs fas fa-angle-right"></i>
-            <a href="" class="bg-gray-100 rounded-lg hover:bg-gray-200 text-xs px-1 text-red-400"> Utilisateur </a> <i class="text-xs fas fa-angle-right"></i>
-            <span class="text-xs"> Créer Compte </span>
+            <a href="" class="bg-gray-100 rounded-lg hover:bg-gray-200 text-xs px-1 text-red-400"> Annonce </a> <i class="text-xs fas fa-angle-right"></i>
+            <span class="text-xs"> Ajouter Annonce </span>
         </div>
         <h1 class="text-gray-600 text-2xl font-bold mt-4">
             Bienvenue!

@@ -17,6 +17,9 @@ use Illuminate\Support\Str;
 
 class AnnonceController extends Controller
 {
+    public function create(){
+        return view('annonce.create');
+    }
 
     public function search(Request $r){
 
@@ -61,6 +64,9 @@ class AnnonceController extends Controller
                 $city = City::findOrFail($r->city);
                 $query->where('city_id', '=', $city->id);
                 $bread['city'] = [$city->id, $city->city_name];
+            }else{
+                $query->where('city_id', '=', -1);
+                $bread['city'] = [-1, "Tous le Maroc"];
             }
         }
 

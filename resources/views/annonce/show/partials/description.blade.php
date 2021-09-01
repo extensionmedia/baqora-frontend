@@ -24,13 +24,13 @@
     <div class="">
         <i class="fas fa-map-marker"></i>
         @if ($annonce->city)
-            <a href="{{route('city.annonces', $annonce->city)}}" class="hover:underline hover:text-red-300"> {{$annonce->city->city_name}} </a>
+            <a href="/search?city={{$annonce->city->id}}" class="hover:underline hover:text-red-300"> {{$annonce->city->city_name}} </a>
             @if ($annonce->sector)
                 <i class="text-xs fas fa-angle-right"></i>
-                <a href="" class="hover:underline hover:text-red-300"> {{$annonce->sector->city_sector_name}} </a>
+                <a href="/search?city_sector_id={{$annonce->sector->id}}" class="hover:underline hover:text-red-300"> {{$annonce->sector->city_sector_name}} </a>
             @endif
         @else
-            <a href="" class="hover:underline hover:text-red-300"> Tous le Maroc </a>
+            <a href="/search?city=-1" class="hover:underline hover:text-red-300"> Tous le Maroc </a>
         @endif
 
     </div>

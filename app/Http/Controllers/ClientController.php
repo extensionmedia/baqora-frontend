@@ -22,14 +22,13 @@ class ClientController extends Controller
             'nom' => 'required|max:255',
             'telephone_01' => 'required|max:100',
             'email' => 'required|max:255',
-            'pwd'   =>  'required'  
+            'pwd'   =>  'required'
         ];
         $messages = [
             'required' => ':attribute ne peut pas etre vide'
         ];
 
         $this->validate($r, $rules, $messages);
-
-        dd($r);
+        return view('client.thankyou');
     }
 }
