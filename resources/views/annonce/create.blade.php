@@ -24,33 +24,71 @@
             </h2>
             <div class="mb-4">
                 <label for="titre" class="block text-sm text-gray-600">Titre de votre annonce</label>
-                <input class="p-2 border rounded w-full" type="text" name="titre" id="titre" placeholder="" required>
+                <input class="px-2 py-1 border border-gray-400 rounded w-full" type="text" name="titre" id="titre" placeholder="" required>
                 @error('titre')
                     <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="mb-4">
+                <label for="prix" class="block text-sm text-gray-600">Prix</label>
+                <input class="px-2 py-1 border border-gray-400 rounded text-right w-48 bg-red-50" type="number" name="prix" id="prix" placeholder="0.00" required>
+                @error('titre')
+                    <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="mb-4">
                 <label for="annonce_category_id" class="block text-sm text-gray-600">Categorie</label>
-                <select name="annonce_category_id" id="annonce_category_id" class="border py-1 px-2 rounded w-full">
+                <select name="annonce_category_id" id="annonce_category_id" class=" border border-gray-400 py-1 px-2 rounded w-full">
                     <option value="-1"> -- Categorie </option>
                     @foreach ($categories as $c)
                         <option value="{{$c->slug}}"> {{$c->annonce_category_name}}</option>
-                    @endforeach 
+                    @endforeach
                 </select>
-                @error('telephone_01')
+                @error('annonce_category_id')
                     <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
                 @enderror
             </div>
 
             <div class="mb-4">
                 <label for="annonce_sous_category_id" class="block text-sm text-gray-600">Sous Categorie <i class="fas fa-spinner fa-spin hidden"></i></label>
-                <select name="annonce_sous_category_id" id="annonce_sous_category_id" class="border py-1 px-2 rounded w-full">
+                <select name="annonce_sous_category_id" id="annonce_sous_category_id" class=" border border-gray-400 py-1 px-2 rounded w-full">
                     <option value="-1"> -- Sous Categorie </option>
                 </select>
-                @error('telephone_01')
+                @error('annonce_sous_category_id')
                     <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="mb-4">
+                <label for="city_id" class="block text-sm text-gray-600">Ville</label>
+                <select name="city_id" id="city_id" class=" border border-gray-400 py-1 px-2 rounded w-full">
+                    <option value="-1"> -- Ville </option>
+                    @foreach ($cities as $c)
+                        <option value="{{$c->id}}"> {{$c->city_name}}</option>
+                    @endforeach
+                </select>
+                @error('city_id')
+                    <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <label for="city_sector_id" class="block text-sm text-gray-600">Secteur <i class="fas fa-spinner fa-spin hidden"></i></label>
+                <select name="city_sector_id" id="city_sector_id" class=" border border-gray-400 py-1 px-2 rounded w-full">
+                    <option value="-1"> -- Secteur </option>
+                </select>
+                @error('city_sector_id')
+                    <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <label for="description" class="block text-sm text-gray-600">Description de l'annonce</label>
+                <textarea class="p-2 border border-gray-400 rounded w-full max-w-full h-32" type="text" name="description" id="message" placeholder=""></textarea>
+            </div>
+
             <input type="file" id="picture" class="hidden">
             <div class="mb-4 bg-gray-100 flex gap-4 items-center p-2 overflow-auto">
                 @for ($i = 1; $i < 6; $i++)
@@ -69,7 +107,7 @@
                                     Photo {{$i-1}}
                                 </div>
                             </div>
-                            <div class="hidden">
+                            <div class="pic hidden">
                                 <img class="selected_picture" src="#" alt="your image" />
                             </div>
                         </div>
@@ -97,8 +135,24 @@
                 }
             });
 
+            $('#city_id').change(function(){
+                var city_id = $(this).val();
+                $('#city_sector_id').empty().append('<option selected value="-1"> -- Sous Categorie </option>');
+                $('#city_sector_id').parent().find('i').removeClass('hidden');
+                if(city_id != '-1'){
+                    $.get("/search/city_sector/"+city_id, function(r){
+                        $.each(r, function(i, val){
+                            $('#city_sector_id').append('<option value="'+val.id+'">'+val.city_sector_name+'</option>');
+                        });
+                        $('#city_sector_id').parent().find('i').addClass('hidden');
+                    });
+                }
+            });
+
             $('.select_picture').click(function(){
-                $("#picture").trigger('click');
+                if($('.pic.hidden').length > 0){
+                    $("#picture").trigger('click');
+                }
             });
 
 
@@ -107,10 +161,9 @@
                     var reader = new FileReader();
 
                     reader.onload = function (e) {
-                        $('.selected_picture').parent().removeClass('hidden');
-                        $('.icon').addClass('hidden');
-
-                        $('.selected_picture').attr('src', e.target.result);
+                        $('.pic.hidden').first().parent().find('.icon').addClass('hidden');
+                        $('.pic.hidden').first().find('.selected_picture').attr('src', e.target.result);
+                        $('.pic.hidden').first().removeClass('hidden');
                     }
 
                     reader.readAsDataURL(input.files[0]);

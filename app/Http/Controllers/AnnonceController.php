@@ -22,6 +22,10 @@ class AnnonceController extends Controller
             'categories'    =>  AnnonceCategory::where('category_status', 1)
                                                 ->where('annonce_category_id',-1)
                                                 ->orderBy('level')
+                                                ->get(),
+            'cities'        =>  City::where('city_status', 1)
+                                                ->where('is_principal', 1)
+                                                ->orderBy('city_name')
                                                 ->get()
         ]);
     }
