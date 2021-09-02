@@ -26,8 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::defaultView('vendor.pagination.tailwind');
-        if($this->app->environment('production')) {
-            \URL::forceScheme('https');
+
+        if (env('APP_ENV') === 'production') {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
         }
     }
 }
