@@ -45,9 +45,9 @@ Route::get('/imagesToJson', [AnnonceController::class, 'imagesToJson'])->name('i
 Route::get('/total_images', [AnnonceController::class, 'total_images'])->name('total_images');
 
 
-Route::get('/search/annonce_category/{id}', [StartController::class, 'getSubAnnonceCategorie']);
-Route::get('/search/city_sector/{id}', [StartController::class, 'getCitySectors']);
 Route::get('/search', [AnnonceController::class, 'search'])->name('search');
+Route::get('/search/annonce_category/{annonce_category}', [StartController::class, 'getSubAnnonceCategorie']);
+Route::get('/search/city_sector/{id}', [StartController::class, 'getCitySectors']);
 
 Route::get('session/cookie/save', function(){
     return session(['cookie_accepted'=>true]);

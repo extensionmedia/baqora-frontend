@@ -7,10 +7,10 @@
             <span class="text-xs"> Ajouter Annonce </span>
         </div>
         <h1 class="text-gray-600 text-2xl font-bold mt-4">
-            Bienvenue!
+            Déposer une annonce
         </h1>
         <p class="text-xs my-2">
-            Créer votre compte sur Baqora.com pour beneficier de plusieurs avantages et pouvoir créer et suivre facilement vos annonces.
+            Commençons par l’essentiel !
         </p>
         <hr>
     </div>
@@ -20,46 +20,108 @@
         <form method="POST" action="{{route('client.store')}}" class="w-full">
             @csrf
             <h2 class="text-gray-600 text-xl mb-4 text-red-300">
-                Formulaire
+                General
             </h2>
             <div class="mb-4">
-                <label for="nom" class="block text-sm text-gray-600">Votre Nom</label>
-                <input class="p-2 border rounded w-full" type="text" name="nom" id="nom" placeholder="Votre Nom..." required>
-                @error('nom')
+                <label for="titre" class="block text-sm text-gray-600">Titre de votre annonce</label>
+                <input class="p-2 border rounded w-full" type="text" name="titre" id="titre" placeholder="" required>
+                @error('titre')
                     <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-4">
-                <label for="telephone_01" class="block text-sm text-gray-600">Votre Téléphone</label>
-                <input class="p-2 border rounded w-full" type="phone" name="telephone_01" id="telephone_01" placeholder="+2126666666" required>
+                <label for="annonce_category_id" class="block text-sm text-gray-600">Categorie</label>
+                <select name="annonce_category_id" id="annonce_category_id" class="border py-1 px-2 rounded w-full">
+                    <option value="-1"> -- Categorie </option>
+                    @foreach ($categories as $c)
+                        <option value="{{$c->slug}}"> {{$c->annonce_category_name}}</option>
+                    @endforeach 
+                </select>
                 @error('telephone_01')
                     <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
                 @enderror
             </div>
+
             <div class="mb-4">
-                <label for="email" class="block text-sm text-gray-600">Votre Email</label>
-                <input class="p-2 border rounded w-full" type="email" name="email" id="email" placeholder="exemple@email.com" required>
-                @error('email')
+                <label for="annonce_sous_category_id" class="block text-sm text-gray-600">Sous Categorie <i class="fas fa-spinner fa-spin hidden"></i></label>
+                <select name="annonce_sous_category_id" id="annonce_sous_category_id" class="border py-1 px-2 rounded w-full">
+                    <option value="-1"> -- Sous Categorie </option>
+                </select>
+                @error('telephone_01')
                     <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-4">
-                <label for="pwd" class="block text-sm text-gray-600">Votre Password</label>
-                <input class="p-2 border rounded w-full" type="password" name="pwd" id="pwd" placeholder="********" required>
-                @error('pwd')
-                    <div class="text-red-500 py-2 text-xs"><i class="far fa-dot-circle"></i> {{ $message }}</div>
-                @enderror
+            <input type="file" id="picture" class="hidden">
+            <div class="mb-4 bg-gray-100 flex gap-4 items-center p-2 overflow-auto">
+                @for ($i = 1; $i < 6; $i++)
+                    @if ($i == 1)
+                        <div class="border-2 rounded border-red-300 text-red-300 w-32 p-6 text-center cursor-pointer hover:bg-red-50 select_picture">
+                            <i class="fas fa-camera-retro text-6xl"></i>
+                            <div class="w-full text-center py-2 text-sm font-bold">
+                                Ajouter Photo
+                            </div>
+                        </div>
+                    @else
+                        <div class="border rounded border-gray-300 text-gray-600 w-32 p-6 text-center">
+                            <div class="icon">
+                                <i class="fas fa-camera-retro text-6xl"></i>
+                                <div class="w-full text-center py-2 text-sm font-bold">
+                                    Photo {{$i-1}}
+                                </div>
+                            </div>
+                            <div class="hidden">
+                                <img class="selected_picture" src="#" alt="your image" />
+                            </div>
+                        </div>
+                    @endif
+                @endfor
             </div>
 
-            <label for="newsletter" class="text-md block"><input type="checkbox" name="newsletter" value="1" id="newsletter" class="mr-1 mb-4"> Recevoir les nouveautés via email</label>
-            <div class="bg-green-50 py-1 px-2 border-green-200 text-xs text-green-900">
-                En créant mon compte je reconnais avoir lu et accepté
-                <a target="blank" class="text-blue-600 underline" href="{{route('pages.conditions')}}">
-                    les Conditions Générales de Vente et les Conditions Générales d‘Utilisation,
-                </a>
-                    et je confirme être âgé d’au moins 18 ans.
-            </div>
-            <button type="submit" class="w-full md:w-1/2 rounded py-2 px-4 bg-blue-600 text-white mt-8">Créer mon compte</button>
+
+            <button type="submit" class="w-full md:w-1/2 rounded py-2 px-4 bg-blue-600 text-white mt-8">Deposer mon annonce</button>
         </form>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('#annonce_category_id').change(function(){
+                var id_annonce_category = $(this).val();
+                $('#annonce_sous_category_id').empty().append('<option selected value="-1"> -- Sous Categorie </option>');
+                $('#annonce_sous_category_id').parent().find('i').removeClass('hidden');
+                if(id_annonce_category != '-1'){
+                    $.get("/search/annonce_category/"+id_annonce_category, function(r){
+                        $.each(r, function(i, val){
+                            $('#annonce_sous_category_id').append('<option value="'+val.id+'">'+val.annonce_category_name+'</option>');
+                        });
+                        $('#annonce_sous_category_id').parent().find('i').addClass('hidden');
+                    });
+                }
+            });
+
+            $('.select_picture').click(function(){
+                $("#picture").trigger('click');
+            });
+
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.selected_picture').parent().removeClass('hidden');
+                        $('.icon').addClass('hidden');
+
+                        $('.selected_picture').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#picture").change(function(){
+                readURL(this);
+            });
+
+
+        });
+    </script>
 @endsection

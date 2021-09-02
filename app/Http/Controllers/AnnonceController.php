@@ -18,7 +18,12 @@ use Illuminate\Support\Str;
 class AnnonceController extends Controller
 {
     public function create(){
-        return view('annonce.create');
+        return view('annonce.create')->with([
+            'categories'    =>  AnnonceCategory::where('category_status', 1)
+                                                ->where('annonce_category_id',-1)
+                                                ->orderBy('level')
+                                                ->get()
+        ]);
     }
 
     public function search(Request $r){
