@@ -13,7 +13,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>Baqora : pour les petites annonces</title>
     @include('container.partials.favicon')
-    @if (env('APP_ENV')=='Production')
+    @if (env('APP_ENV')=='production')
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-JW7HZE4FEL"></script>
         <script>
