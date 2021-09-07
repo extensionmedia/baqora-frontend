@@ -25,6 +25,9 @@
         </script>
     @endif
 
+    @if (env('APP_ENV')=='production')
+        <script data-ad-client="ca-pub-8930598722907998" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    @endif
 </head>
 <body>
 
