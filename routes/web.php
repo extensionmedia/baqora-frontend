@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Annonce;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StartController;
@@ -61,3 +62,17 @@ Route::get('/featured', [AnnonceController::class, 'featured'])->name('featured'
 Route::get('/client/create', [ClientController::class, 'create'])->name('client.create');
 Route::post('/client/store', [ClientController::class, 'store'])->name('client.store');
 Route::get('/client/phone/{client}', [ClientController::class, 'get_phone'])->name('client.get_phone');
+
+// Route::get('/years', function(){
+//     foreach (Annonce::whereYear('created_at', '<', '2021')->get() as $a) {
+//         // echo $a->created_at . "<br>";
+//         $dates = explode(" ", $a->created_at);
+//         $years = explode("-", $dates[0]);
+
+//         $date = "2021-".$years[1]."-".$years[2]." ".$dates[1];
+
+//         $a->created_at = $date;
+//         echo $a->save() . "<br>";
+//     }
+//     echo 'finiched';
+// });

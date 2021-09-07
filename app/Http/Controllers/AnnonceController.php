@@ -96,7 +96,7 @@ class AnnonceController extends Controller
 
         if($query->count()){
             return view('search.result')->with([
-                'annonces'      =>  $query->orderBy('created_at', 'DESC')->paginate(25)->appends(request()->query()),
+                'annonces'      =>  $query->whereDate('created_at', '<=', Carbon::today())->orderBy('created_at', 'DESC')->paginate(25)->appends(request()->query()),
                 'categories'    =>  AnnonceCategory::where('category_status', 1)
                                     ->where('annonce_category_id',-1)
                                     ->orderBy('level')
@@ -156,7 +156,7 @@ class AnnonceController extends Controller
     }
 
     public function featured(){
-        $annonces = Annonce::inRandomOrder()->limit(10)->get();
+        $annonces = Annonce::whereDate('created_at', '<=', Carbon::today())->inRandomOrder()->limit(10)->get();
         $html = '';
         foreach($annonces as $a){
             $html .= view('annonce.item')->with(['annonce'=>$a]);
