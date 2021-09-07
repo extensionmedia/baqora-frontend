@@ -12,11 +12,9 @@
                     <p class="text-lg">
                         {{$annonce->titre}}
                     </p>
-                    @if ($loop->index == 3 OR $loop->index == 0)
-                    <div class="rounded border border-red-300 text-red-300 text-xs py-0 px-4">
+                    <div class="rounded border border-red-300 text-red-300 text-xs py-0 px-4 hidden">
                         PRO
                     </div>
-                    @endif
                 </div>
                 <div class="text-xs text-red-300">
                     <p>

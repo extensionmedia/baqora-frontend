@@ -56,6 +56,7 @@ Route::get('session/cookie/save', function(){
 
 Route::get('/favorites', [AnnonceController::class, 'favorite'])->name('favorite');
 Route::get('/favorites/add/{annonce_id}/{action}', [AnnonceController::class, 'add_to_favorites'])->name('favorite.add');
+Route::get('/featured', [AnnonceController::class, 'featured'])->name('featured');
 
 Route::get('/client/create', [ClientController::class, 'create'])->name('client.create');
 Route::post('/client/store', [ClientController::class, 'store'])->name('client.store');
