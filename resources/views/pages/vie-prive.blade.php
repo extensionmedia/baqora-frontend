@@ -1,4 +1,7 @@
 @extends('container.app')
+@section('title')
+    Baqora : Vie Privé et Politique de Confidentialité
+@endsection
 @section('content')
 
 

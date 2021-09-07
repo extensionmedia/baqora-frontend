@@ -1,4 +1,7 @@
 @extends('container.app')
+@section('title')
+    {{$annonce->titre}}
+@endsection
 @section('content')
     <div class="mx-auto w-full xl:w-2/3 px-4 lg:px-8">
         @include('annonce.show.partials.breadcrumb')

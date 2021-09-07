@@ -1,4 +1,7 @@
 @extends('container.app')
+@section('title')
+    Baqora : Conditions Générales d’Utilisation
+@endsection
 @section('content')
 
 

@@ -1,4 +1,7 @@
 @extends('container.app')
+@section('title')
+    Baqora : A-Propos
+@endsection
 @section('content')
 
 

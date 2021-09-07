@@ -1,5 +1,7 @@
 @extends('container.app')
-
+@section('title')
+    Baqora : 404 Aucune resultat pour cette recherche
+@endsection
 @section('content')
     <div class="w-full">
         <div class="w-96 mx-auto py-24">

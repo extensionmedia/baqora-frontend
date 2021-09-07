@@ -1,4 +1,7 @@
 @extends('container.app')
+@section('title')
+    Baqora : Site de petites annonces
+@endsection
 @section('content')
 <div class="w-full bg-red-300 py-4 pb-16">
     <div class="mx-auto w-full xl:w-2/3 px-8">

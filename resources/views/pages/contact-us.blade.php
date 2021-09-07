@@ -1,4 +1,7 @@
 @extends('container.app')
+@section('title')
+    Baqora : Contactez Nous
+@endsection
 @section('content')
     <div class="mx-auto w-full xl:w-2/3 px-4 lg:px-8">
         <div class="py-4">
